@@ -3,6 +3,6 @@ import Loadable from '../components/Loadable';
 
 const Sample = Loadable(lazy(() => import('../views/SampleView')));
 
-const MainRoutes = [{ path: '/', component: Sample }];
+const AuthRoutes = [{ path: '/', component: Sample }];
 
-export default MainRoutes
+export default AuthRoutes

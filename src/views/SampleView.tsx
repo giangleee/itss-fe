@@ -1,7 +1,7 @@
 const SampleView = () => {
     return (
         <>
-            asdas
+            asdasdasdasdasd2131232
         </>
     )
 }

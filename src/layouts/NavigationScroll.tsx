@@ -1,12 +1,11 @@
 import { useEffect, ReactNode, FC } from 'react';
-import { useLocation } from 'react-router-dom';
 
 interface NavigationScrollProps {
   children?: ReactNode;
 }
 
 const NavigationScroll: FC<NavigationScrollProps> = ({ children }) => {
-  const location = useLocation();
+  const location = window.location;
   const { pathname } = location;
 
   useEffect(() => {
@@ -17,7 +16,7 @@ const NavigationScroll: FC<NavigationScrollProps> = ({ children }) => {
     });
   }, [pathname]);
 
-  return children || null;
+  return <>{children || null}</>
 };
 
 export default NavigationScroll;

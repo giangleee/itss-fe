@@ -1,8 +1,26 @@
-const Routes = () => {
-    return (
-        <>
-        asd</>
-    )
-}
+import { FC } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainCardWrapper from '../layouts/wrappers/MainCardWrapper';
+import authRoutes from './AuthRoutes'
 
-export default Routes
+const App: FC = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                {authRoutes.map((route, index) => (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        element={
+                            <MainCardWrapper>
+                                <route.component />
+                            </MainCardWrapper>
+                        }
+                    />
+                ))}
+            </Routes>
+        </BrowserRouter>
+    );
+};
+
+export default App;
