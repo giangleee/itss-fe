@@ -1,13 +1,15 @@
 import { FC } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainCardWrapper from '../layouts/wrappers/MainCardWrapper';
-import authRoutes from './AuthRoutes'
+import mainRoutes from './MainRoutes'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap';
 
 const App: FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {authRoutes.map((route, index) => (
+                {mainRoutes.map((route, index) => (
                     <Route
                         key={index}
                         path={route.path}

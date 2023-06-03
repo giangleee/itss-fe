@@ -1,16 +1,17 @@
 import { FC, ReactNode } from 'react';
+import Header from '../../components/Header/Header';
 
 interface WrapperProps {
-  children?: ReactNode;
+    children?: ReactNode;
 }
 
 const MainCardWrapper: FC<WrapperProps> = ({ children }) => {
-  return (
-    <div style={{ border: '1px solid black', padding: '10px' }}>
-      {children}
-    </div>
-  );
+    return (
+        <div className="container">
+            <Header />
+            <div className="pt-5">{children}</div>
+        </div>
+    );
 };
 
 export default MainCardWrapper;
-
