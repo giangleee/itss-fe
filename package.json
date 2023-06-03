@@ -15,6 +15,7 @@
     "@mui/material": "^5.13.2",
     "@mui/styles": "^5.13.2",
     "@tabler/icons": "^2.21.0",
+    "@tabler/icons-react": "^2.21.0",
     "@types/lodash": "^4.14.195",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
