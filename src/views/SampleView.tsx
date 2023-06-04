@@ -1,7 +1,9 @@
+import RequestList from "../components/RequestList/RequestList"
+
 const SampleView = () => {
     return (
         <>
-            asdasdasdasdasd2131232
+            <RequestList />
         </>
     )
 }
