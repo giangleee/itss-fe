@@ -11,7 +11,7 @@ import {
 import "./style.scss";
 import React from "react";
 
-const Header = () => {
+const RequestList = () => {
   const [age, setAge] = React.useState<number | null>(null);
   const [gender, setGender] = React.useState<number | null>(null);
   const [rating, setRating] = React.useState<number | null>(null);
@@ -328,4 +328,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default RequestList;
