@@ -27,7 +27,7 @@ const Slider: FC = () => {
                         </div>
                         <div className="user-info__info">
                             <div className="user-info__name">Nguyen Van A</div>
-                            <div className="user-info__role">Owner</div>
+                            {/* <div className="user-info__role">Owner</div> */}
                         </div>
                     </div>
 

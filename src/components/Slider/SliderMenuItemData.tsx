@@ -10,7 +10,7 @@ interface SliderMenuItemInterface {
 
 const SliderMenuItemData: SliderMenuItemInterface[] = [
     {
-        text: 'Housekeeper list',
+        text: 'スタッフ情報',
         sliderIcon: (
             <IconHome2
                 width="40"
@@ -20,9 +20,9 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
         router: '/',
     },
     {
-        text: 'Housekeeper demand',
+        text: '個人情報',
         sliderIcon: (
-            <IconDashboard
+            <IconUserEdit
                 width="40"
                 height="40"
             />
@@ -30,17 +30,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
         router: '/',
     },
     {
-        text: 'Request History',
-        sliderIcon: (
-            <IconNotes
-                width="40"
-                height="40"
-            />
-        ),
-        router: '/',
-    },
-    {
-        text: 'Create new request',
+        text: 'リクエスト作成',
         sliderIcon: (
             <IconCirclePlus
                 width="40"
@@ -50,9 +40,19 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
         router: '/',
     },
     {
-        text: 'Update Profile',
+        text: 'リクエスト歴史',
         sliderIcon: (
-            <IconUserEdit
+            <IconNotes
+                width="40"
+                height="40"
+            />
+        ),
+        router: '/',
+    },
+    {
+        text: 'スタッフからのリクエスト',
+        sliderIcon: (
+            <IconDashboard
                 width="40"
                 height="40"
             />
