@@ -1,12 +1,26 @@
-import { IconHome2 } from '@tabler/icons-react';
+import { FC, ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 
-const SliderMenuItem = () => {
+interface SliderMenuItem {
+    text: string,
+    sliderIcon: ReactNode,
+    router: string,
+}
+
+const SliderMenuItem: FC<SliderMenuItem> = ({text, sliderIcon, router}) => {
+
+    const navigate = useNavigate();
+
+    const handleRedict = () => {
+        navigate(router)
+    }
+
     return (
-        <div className="menu-item__container">
+        <div className="menu-item__container" onClick={() => handleRedict()}>
             <div className="menu-item__icon">
-                <IconHome2 width="40" height="40" />
+                { sliderIcon }
             </div>
-            <div className="menu-item__text">Housekeeper list</div>
+            <div className="menu-item__text">{ text }</div>
         </div>
     );
 };
