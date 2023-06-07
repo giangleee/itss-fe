@@ -149,7 +149,8 @@ const RequestList = () => {
 
   return (
     <div className="container-fluid">
-      <div>
+      <div className="request__container">
+        <div className="request__container-header">
         <div className="row">
           <div className="col-4 align-self-end">
             <b>受信したリクエストの数: {displayData?.length}</b>
@@ -303,8 +304,9 @@ const RequestList = () => {
             })}
           </List>
         </div>
+        </div>
 
-        <div className="d-flex justify-content-center pt-3">
+        <div className="d-flex justify-content-center">
           <Pagination
             count={ceil(displayData.length / 3)}
             variant="outlined"

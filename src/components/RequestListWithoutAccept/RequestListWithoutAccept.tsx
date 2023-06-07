@@ -30,8 +30,8 @@ const RequestListWithoutAccept = () => {
   }, []);
   return (
     <div className="container-fluid">
-      <div>
-        <div className="row">
+      <div className="request__container">
+        <div className="row request__container-header">
           <List
             className="pt-0"
             sx={{ width: "100%" }}
@@ -172,7 +172,7 @@ const RequestListWithoutAccept = () => {
                               style={{
                                 backgroundColor: "#FF7008",
                               }}
-                              
+
                             >
                               見る
                             </Button>
