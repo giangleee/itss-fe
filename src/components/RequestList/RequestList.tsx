@@ -153,11 +153,29 @@ const RequestList = () => {
         <div className="request__container-header">
         <div className="row">
           <div className="col-4 align-self-end">
-            <b>Request received: {displayData?.length}</b>
+            <b>受信したリクエストの数: {displayData?.length}</b>
           </div>
           <div className="col-8">
             <div className="row">
-            <div className="col-1">
+              {/* <div className="col-1">
+              </div> */}
+
+              <div className="col-3">
+                <Autocomplete
+                  id="gender-filter"
+                  size="small"
+                  options={genderList}
+                  getOptionLabel={(option) => option.label}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="性別"
+                    />
+                  )}
+                  onChange={(event: any, newValue) => {
+                    setGender(newValue?.value ?? null);
+                  }}
+                />
               </div>
               <div className="col-3">
                 <Autocomplete
@@ -168,28 +186,11 @@ const RequestList = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Age"
+                      label="年"
                     />
                   )}
                   onChange={(event: any, newValue: any) => {
                     setAge(newValue?.value ?? null);
-                  }}
-                />
-              </div>
-              <div className="col-3">
-                <Autocomplete
-                  id="gender-filter"
-                  size="small"
-                  options={genderList}
-                  getOptionLabel={(option) => option.label}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Gender"
-                    />
-                  )}
-                  onChange={(event: any, newValue) => {
-                    setGender(newValue?.value ?? null);
                   }}
                 />
               </div>
@@ -202,7 +203,7 @@ const RequestList = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Rating"
+                      label="定格"
                     />
                   )}
                   onChange={(event: any, newValue: any) => {
@@ -210,14 +211,14 @@ const RequestList = () => {
                   }}
                 />
               </div>
-              <div className="col-2">
+              <div className="col-3">
                 <Button
                   className="w-100"
                   variant="contained"
                   color="success"
                   onClick={handleFilter}
                 >
-                  Apply
+                  申し込み
                 </Button>
               </div>
             </div>
@@ -235,7 +236,7 @@ const RequestList = () => {
                 return (
                   <ListItem
                     alignItems="flex-start"
-                    className="my-4"
+                    className="my-2"
                     sx={{ width: "100%", bgcolor: "background.paper" }}
                   >
                     <div className="row h-100 w-100">
@@ -249,17 +250,17 @@ const RequestList = () => {
                         <div className="row">
                           <div className="d-flex w-100 justify-content-between">
                             <b>{item.fullName}</b>
-                            <small>ID: {item._id}</small>
+                            {/* <small>ID: {item._id}</small> */}
                           </div>
                         </div>
                         <div className="row">
-                          <span>Gender: {item.gender}</span>
+                          <span>性別: {item.gender}</span>
                         </div>
                         <div className="row">
-                          <b>Age: {calculate_age(item.date_of_birth)}</b>
+                          <b>年: {calculate_age(item.date_of_birth)}</b>
                         </div>
                         <div className="row">
-                          <b>Address: {item.address}</b>
+                          <b>アドレス: {item.address}</b>
                         </div>
                         <div className="row w-100 ">
                           <div className="col-6">
@@ -281,7 +282,7 @@ const RequestList = () => {
                                   borderColor: "#FF7008",
                                 }}
                               >
-                                Delete
+                                削除
                               </Button>
                               <Button
                                 className="me-2 ms-2 px-3"
@@ -291,7 +292,7 @@ const RequestList = () => {
                                   backgroundColor: "#FF7008",
                                 }}
                               >
-                                Accept
+                                受け入れる
                               </Button>
                             </div>
                           </div>

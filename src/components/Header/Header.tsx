@@ -14,7 +14,7 @@ const Header = () => {
                         </div>
 
                         <div className="header-layout__select-language">
-                            <SelectLanguage />
+                            {/* <SelectLanguage /> */}
                         </div>
                     </div>
                 </div>

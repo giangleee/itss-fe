@@ -44,7 +44,7 @@ const RequestListWithoutAccept = () => {
                 return (
                   <ListItem
                     alignItems="flex-start"
-                    className="my-4"
+                    className="mb-3"
                     sx={{
                       width: "100%",
                       bgcolor: "background.paper",
@@ -53,15 +53,15 @@ const RequestListWithoutAccept = () => {
                   >
                     <div className="w-100">
                       <div className="row h-100 w-100 mb-3">
-                        <span>
-                          <b>RequestId: {item._id}</b>
+                        <span >
+                          <b>リクエストID: {item._id}</b>
                         </span>
                       </div>
 
                       <div className="row h-100 w-100 my-2">
-                        <div className="col-2">
+                        <div className="col-2  align-self-center">
                           <span>
-                            <b>Open time</b>
+                            <b>時間</b>
                           </span>
                         </div>
                         <div className="col-10 me-0 pe-0">
@@ -71,9 +71,9 @@ const RequestListWithoutAccept = () => {
                               <div className="row w-100 pe-0">
                                 <div className="col-6 p-0 m-0">
                                   <div className=" row w-100">
-                                    <div className="col-4">
+                                    <div className="col-4  align-self-center">
                                       <span>
-                                        <b>From</b>
+                                        <b>から</b>
                                       </span>
                                     </div>
                                     <div className="col-8 px-0 mx-0">
@@ -92,9 +92,9 @@ const RequestListWithoutAccept = () => {
                                 </div>
                                 <div className="col-6 p-0 m-0">
                                   <div className="row w-100 ">
-                                    <div className="col-4">
+                                    <div className="col-4  align-self-center">
                                       <span>
-                                        <b>To</b>
+                                        <b>まで</b>
                                       </span>
                                     </div>
                                     <div className="col-8 px-0 mx-0">
@@ -116,9 +116,9 @@ const RequestListWithoutAccept = () => {
 
                             <div className="col-5 m-0 p-0">
                               <div className="row w-100 px-0 mx-0">
-                                <div className="col-3">
+                                <div className="col-3  align-self-center">
                                   <span>
-                                    <b>Salary</b>
+                                    <b>給料</b>
                                   </span>
                                 </div>
                                 <div className="col-9 m-0 p-0">
@@ -142,7 +142,7 @@ const RequestListWithoutAccept = () => {
                       <div className="row h-100 w-100 my-2">
                         <div className="col-2">
                           <span>
-                            <b>Detail</b>
+                            <b>仕事の詳細</b>
                           </span>
                         </div>
                         <div className="col-10 ms-0 ps-0">
@@ -174,7 +174,7 @@ const RequestListWithoutAccept = () => {
                               }}
 
                             >
-                              View
+                              見る
                             </Button>
                           </div>
                         </div>
