@@ -44,7 +44,7 @@ const RequestListWithoutAccept = () => {
                 return (
                   <ListItem
                     alignItems="flex-start"
-                    className="my-4"
+                    className="mb-3"
                     sx={{
                       width: "100%",
                       bgcolor: "background.paper",
@@ -174,7 +174,7 @@ const RequestListWithoutAccept = () => {
                               }}
                               
                             >
-                              View
+                              見る
                             </Button>
                           </div>
                         </div>
