@@ -223,7 +223,7 @@ const RequestList = () => {
           </div>
         </div>
 
-        <div className="row pt-3">
+        <div className="row py-0 my-0">
           <List sx={{ width: "100%" }}>
             {displayData.map((item: any, index: number) => {
               if (
