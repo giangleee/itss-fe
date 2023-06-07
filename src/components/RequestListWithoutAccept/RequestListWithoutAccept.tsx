@@ -53,13 +53,13 @@ const RequestListWithoutAccept = () => {
                   >
                     <div className="w-100">
                       <div className="row h-100 w-100 mb-3">
-                        <span>
+                        <span >
                           <b>リクエストID: {item._id}</b>
                         </span>
                       </div>
 
                       <div className="row h-100 w-100 my-2">
-                        <div className="col-2">
+                        <div className="col-2  align-self-center">
                           <span>
                             <b>時間</b>
                           </span>
@@ -71,7 +71,7 @@ const RequestListWithoutAccept = () => {
                               <div className="row w-100 pe-0">
                                 <div className="col-6 p-0 m-0">
                                   <div className=" row w-100">
-                                    <div className="col-4">
+                                    <div className="col-4  align-self-center">
                                       <span>
                                         <b>から</b>
                                       </span>
@@ -92,7 +92,7 @@ const RequestListWithoutAccept = () => {
                                 </div>
                                 <div className="col-6 p-0 m-0">
                                   <div className="row w-100 ">
-                                    <div className="col-4">
+                                    <div className="col-4  align-self-center">
                                       <span>
                                         <b>まで</b>
                                       </span>
@@ -116,7 +116,7 @@ const RequestListWithoutAccept = () => {
 
                             <div className="col-5 m-0 p-0">
                               <div className="row w-100 px-0 mx-0">
-                                <div className="col-3">
+                                <div className="col-3  align-self-center">
                                   <span>
                                     <b>給料</b>
                                   </span>
