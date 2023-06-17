@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-debugger */
 import { Autocomplete, Avatar, Button, List, ListItem, Pagination, Rating, TextField } from "@mui/material";
 import "./style.scss";
@@ -195,7 +196,7 @@ const RequestList = () => {
                 </div>
                 <div className="col-3">
                   <Button
-                    className="w-100"
+                    className="w-100 bg-[#198754]"
                     variant="contained"
                     color="success"
                     onClick={handleFilter}
@@ -216,6 +217,7 @@ const RequestList = () => {
                       alignItems="flex-start"
                       className="my-2"
                       sx={{ width: "100%", bgcolor: "background.paper" }}
+                      key={item._id}
                     >
                       <div className="row h-100 w-100">
                         <div className="col-3 align-self-center text-center  ps-5">

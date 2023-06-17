@@ -17,7 +17,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
                 height="40"
             />
         ),
-        router: '/',
+        router: '/staffs',
     },
     {
         text: '個人情報',
@@ -27,7 +27,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
                 height="40"
             />
         ),
-        router: '/',
+        router: '/profile',
     },
     {
         text: 'リクエスト作成',
@@ -37,7 +37,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
                 height="40"
             />
         ),
-        router: '/',
+        router: '/request/new',
     },
     {
         text: 'リクエスト歴史',
@@ -47,7 +47,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
                 height="40"
             />
         ),
-        router: '/',
+        router: '/request/history',
     },
     {
         text: 'スタッフからのリクエスト',
@@ -57,7 +57,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
                 height="40"
             />
         ),
-        router: '/',
+        router: '/request-list-staff',
     },
 ];
 
