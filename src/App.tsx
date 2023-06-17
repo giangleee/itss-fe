@@ -1,6 +1,6 @@
-import { CssBaseline, StyledEngineProvider } from "@mui/material"
-import NavigationScroll from "./layouts/NavigationScroll"
-import Routes from "./routes"
+import { CssBaseline, StyledEngineProvider } from '@mui/material'
+import NavigationScroll from './layouts/NavigationScroll'
+import Routes from './routes'
 
 const App = () => {
   return (
