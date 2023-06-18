@@ -2,6 +2,7 @@
 export type Staff = {
   _id: string;
   fullname: string;
+  intro?: string;
   avatar?: string;
   date_of_birth: string;
   age: number;

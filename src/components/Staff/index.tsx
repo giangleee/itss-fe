@@ -6,20 +6,19 @@ import Filter from "./Filter";
 import StaffList from "./StaffList";
 import { getListStaff } from "../../api/request";
 import { Staff } from "../../types";
+import StaffDetail from "./StaffDetal";
 const StaffLayout = () => {
   return (
-    <div className="bg-transparent w-full h-full flex flex-col items-stretch">
-      <Routes>
-        <Route
-          path="/"
-          element={<StaffsView />}
-        />
-        <Route
-          path="/:staff_id"
-          element={<StaffDetail />}
-        />
-      </Routes>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={<StaffsView />}
+      />
+      <Route
+        path="/:staff_id/*"
+        element={<StaffDetail />}
+      />
+    </Routes>
   );
 };
 const StaffsView = () => {
@@ -33,12 +32,10 @@ const StaffsView = () => {
   });
   useEffect(() => {
     refetch();
-    console.log(filter);
-    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter.age, filter.gender, filter.star]);
   return (
-    <>
+    <div className="bg-transparent w-full h-full flex flex-col items-stretch">
       <Filter
         onChange={(query) => {
           setFilter(query);
@@ -58,11 +55,8 @@ const StaffsView = () => {
           setCurrentPage(value - 1);
         }}
       />
-    </>
+    </div>
   );
-};
-const StaffDetail = () => {
-  return <></>;
 };
 
 export default StaffLayout;

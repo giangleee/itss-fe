@@ -16,7 +16,7 @@ const RequestListWithoutAccept = Loadable(lazy(() => import("../views/RequestLis
 const MainRoutes: Array<MainRoutesInterface> = [
   { path: "/", component: Sample },
   {
-    path: "/staffs/*",
+    path: "/staff/*",
     component: StaffLayout,
   },
   { path: "/profile", component: Sample },

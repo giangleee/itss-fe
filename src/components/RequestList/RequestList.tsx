@@ -155,7 +155,7 @@ const RequestList = () => {
                         label="性別"
                       />
                     )}
-                    onChange={(event: any, newValue) => {
+                    onChange={(_, newValue) => {
                       setGender(newValue?.value ?? null);
                     }}
                   />
@@ -172,7 +172,7 @@ const RequestList = () => {
                         label="年"
                       />
                     )}
-                    onChange={(event: any, newValue: any) => {
+                    onChange={(_, newValue: any) => {
                       setAge(newValue?.value ?? null);
                     }}
                   />
@@ -189,7 +189,7 @@ const RequestList = () => {
                         label="定格"
                       />
                     )}
-                    onChange={(event: any, newValue: any) => {
+                    onChange={(_, newValue: any) => {
                       setRating(newValue?.value ?? null);
                     }}
                   />
@@ -292,7 +292,7 @@ const RequestList = () => {
             variant="outlined"
             shape="rounded"
             color="primary"
-            onChange={(event: any, value: number) => {
+            onChange={(_, value: number) => {
               setCurrentPage(value - 1);
             }}
           />

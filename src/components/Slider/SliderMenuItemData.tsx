@@ -17,7 +17,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
                 height="40"
             />
         ),
-        router: '/staffs',
+        router: '/staff',
     },
     {
         text: '個人情報',

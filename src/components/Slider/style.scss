@@ -1,8 +1,8 @@
-$active-color: rgba(184, 186, 75, 0.65);
+$active-color: #b8ba4ba6;
 .active {
     background-color: $active-color;
-    transition: background-color 0.1s ease-in-out;
-    font-weight: 600;;
+    transition: all 0.1s ease-in-out;
+    font-weight: 700;
 }
 .slide-container {
     background-color: white;
@@ -58,6 +58,7 @@ $active-color: rgba(184, 186, 75, 0.65);
             border-bottom: 1px solid;
             text-decoration: none;
             color: #2e1f27; 
+            gap: 7px;
         }
     }
 
