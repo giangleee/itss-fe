@@ -15,7 +15,7 @@ const Slider: FC = () => {
     const [sliderMenuItemData] = useState<SliderMenuItemInterface[]>(SliderMenuItemData);
 
     return (
-        <div className="slide-container">
+        <div className="slide-container shadow-md rounded-xl">
             <div className="user-info__container">
                 <div className="first">
                     <div className="user-info__content">

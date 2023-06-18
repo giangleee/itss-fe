@@ -14,7 +14,7 @@ const MainCardWrapper: FC<WrapperProps> = ({ children }) => {
                 <div className='col-3 px-3'>
                 <Slider />
                 </div>
-                <div className='col-9 px-3'>
+                <div className='col-9 px-3 h-[600px]'>
                 {children}
                 </div>
             </div>
