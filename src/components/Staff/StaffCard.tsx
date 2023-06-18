@@ -17,7 +17,7 @@ const StaffCard = ({ staff }: { staff: Staff }) => {
       <div className="flex justify-center items-center">
         <img
           src={staff.avatar || avatar}
-          className="rounded-full w-4/6 mt-2 border-gray-300 border-1 shadow-md"
+          className="rounded-full w-4/6 mt-2 border-gray-300 border-1 shadow-md aspect-square object-cover"
           alt={staff.fullname}
         />
       </div>

@@ -15,8 +15,9 @@ export type Staff = {
   city: string;
   district: string;
   address: string;
-  company_exp: any;
-  total_exp: any;
+  company_exp: number;
+  total_exp: number;
+  skill?: string[];
 };
 
 export type GenderType = "Male" | "Female" | "Other";
