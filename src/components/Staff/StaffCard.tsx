@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mui/material";
+import { Button, Paper, Skeleton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import avatar from "../../assets/img/avatar.png";
 import { PropsWithChildren } from "react";
@@ -64,4 +64,14 @@ const StaffCard = ({ staff }: { staff: Staff }) => {
 const Styledb = ({ children }: PropsWithChildren) => {
   return <p className="font-bold mt-0.5">{children}</p>;
 };
+export const StaffCardSkeleton = () => {
+  return (
+    <Skeleton
+      animation="wave"
+      variant="rounded"
+      className="w-1/4 h-full"
+    />
+  );
+};
+
 export default StaffCard;

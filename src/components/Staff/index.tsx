@@ -1,12 +1,12 @@
 import { Pagination } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Filter from "./Filter";
 import StaffList from "./StaffList";
 import { getListStaff } from "../../api/request";
-import { Staff } from "../../types";
-import StaffDetail from "./StaffDetal";
+import { FilterType, Staff } from "../../types";
+import StaffDetail from "./detail";
 const StaffLayout = () => {
   return (
     <Routes>
@@ -23,22 +23,19 @@ const StaffLayout = () => {
 };
 const StaffsView = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [filter, setFilter] = useState<{ gender?: string; age?: number; star?: number }>({});
+  const [filter, setFilter] = useState<FilterType>({});
   const { data, isFetching, refetch } = useQuery<Staff[]>({
-    queryKey: ["staffs"],
+    queryKey: ["staffs", filter.age, filter.gender, filter.star],
     queryFn: () => getListStaff(filter),
     initialData: [],
     refetchOnWindowFocus: false,
   });
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter.age, filter.gender, filter.star]);
   return (
     <div className="bg-transparent w-full h-full flex flex-col items-stretch">
       <Filter
         onChange={(query) => {
           setFilter(query);
+          refetch();
         }}
       />
       <StaffList
