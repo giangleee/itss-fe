@@ -8,10 +8,9 @@ const LoaderWrapper = styled('div')({
     width: '100%'
 });
 
-const Loader = () => {
+const Loader = () => 
     <LoaderWrapper>
         <LinearProgress color="primary" />
     </LoaderWrapper>
-}
 
 export default Loader

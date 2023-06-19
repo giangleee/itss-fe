@@ -1,9 +1,6 @@
 import { IconLogout2 } from '@tabler/icons-react';
-import { useNavigate } from 'react-router';
 
 const SliderFooter = () => {
-
-    const navigate = useNavigate();
 
     const handleLogout = () => {
         console.log('logout')
