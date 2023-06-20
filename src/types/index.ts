@@ -28,3 +28,11 @@ export type FilterType = {
   age?: AgeType;
   star?: StarType;
 };
+
+export type RatingType = {
+  user_id?: string;
+  staff_id?: string;
+  request_id?: string;
+  data?: any
+};
+
