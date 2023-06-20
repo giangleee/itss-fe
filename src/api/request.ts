@@ -10,6 +10,11 @@ export const getListProgress = () => {
   const url = `/request/list-progess`;
   return instance.get(url);
 };
+
+export const getListOwnerHistoryRequest = (_id: string) => {
+  const url = `/request/user?user_id=${_id}`;
+  return instance.get(url);
+};
 export const getListStaff = async ({ gender, age, star }: { gender?: string; age?: number; star?: number }) => {
   const url = "/staff/list-staff?";
   const res = await instance.get(url);
