@@ -2,17 +2,15 @@ import { Autocomplete, Button, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders } from "@fortawesome/free-solid-svg-icons";
-import { AgeType, GenderType, StarType } from "../../types";
+import type { FilterType, AgeType, GenderType, StarType } from "../../types";
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface FilterProps {
-  onChange?: ({ gender, age, star }: { gender?: GenderType; age?: AgeType; star?: StarType }) => void;
+  onChange?: ({ gender, age, star }: FilterType) => void;
 }
 const Filter: FC<FilterProps> = ({ onChange }) => {
-  const [gender, setGender] = useState<GenderType>();
-  const [age, setAge] = useState<AgeType>();
-  const [star, setStar] = useState<StarType>();
+  const [filter, setFilter] = useState<FilterType>({});
   const handleSubmitFilter = () => {
-    onChange?.({ gender, age, star });
+    onChange?.(filter);
   };
   return (
     <div className="bg-transparent flex flex-row justify-end gap-3 items-stretch">
@@ -38,7 +36,7 @@ const Filter: FC<FilterProps> = ({ onChange }) => {
           />
         )}
         isOptionEqualToValue={(o, v) => o.value === v.value}
-        onChange={(_, v) => setGender(v?.value)}
+        onChange={(_, v) => setFilter({ ...filter, gender: v?.value })}
       />
       <Autocomplete
         className="w-1/6"
@@ -58,7 +56,7 @@ const Filter: FC<FilterProps> = ({ onChange }) => {
             label="年齢"
           />
         )}
-        onChange={(_, v) => setAge(v?.value)}
+        onChange={(_, v) => setFilter({ ...filter, age: v?.value })}
       />
       <Autocomplete
         className="w-1/6"
@@ -78,7 +76,7 @@ const Filter: FC<FilterProps> = ({ onChange }) => {
             label="評価"
           />
         )}
-        onChange={(_, v) => setStar(v?.value)}
+        onChange={(_, v) => setFilter({ ...filter, star: v?.value })}
       />
       <Button
         className="w-1/6 bg-[#198754]"

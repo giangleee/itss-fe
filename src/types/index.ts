@@ -23,3 +23,8 @@ export type Staff = {
 export type GenderType = "Male" | "Female" | "Other";
 export type AgeType = 30 | 45 | 60;
 export type StarType = 1 | 2 | 3 | 4 | 5;
+export type FilterType = {
+  gender?: GenderType;
+  age?: AgeType;
+  star?: StarType;
+};

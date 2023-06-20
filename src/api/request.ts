@@ -24,13 +24,14 @@ export const getListStaff = async ({ gender, age, star }: { gender?: string; age
     const age = today.getFullYear() - birthDate.getFullYear();
     return age;
   };
-
-  const data = (<Staff[]>res.data.data).filter((staff) => {
-    staff.age = staff.age ?? getAge(staff.date_of_birth);
-    const cond1 = gender ? staff.gender === gender : true;
-    const cond2 = age ? staff.age <= age && staff.age > age - 15 : true;
-    const cond3 = star ? staff.rating_avg >= star : true;
-    return cond1 && cond2 && cond3;
-  });
+  const data = (<Staff[]>res.data.data)
+    .filter((staff) => {
+      staff.age = staff.age ?? getAge(staff.date_of_birth);
+      const cond1 = gender ? staff.gender === gender : true;
+      const cond2 = age ? staff.age <= age && staff.age > age - 15 : true;
+      const cond3 = star ? staff.rating_avg >= star : true;
+      return cond1 && cond2 && cond3;
+    })
+    .sort((a, b) => b.rating_avg - a.rating_avg);
   return data;
 };
