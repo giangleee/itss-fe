@@ -77,8 +77,8 @@ const SelectTimeComponent = () => {
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             label="Age">
-                                            {hour.map((item) => (
-                                                <MenuItem value={item}>{item}</MenuItem>
+                                            {hour.map((item, i) => (
+                                                <MenuItem key={i} value={item}>{item}</MenuItem>
                                             ))}
                                         </Select>
                                     </FormControl>

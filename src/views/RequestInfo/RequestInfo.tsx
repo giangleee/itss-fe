@@ -1,8 +1,14 @@
 import "./style.scss";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Button, FormControl, Grid, TextField, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 const RequestInfo: FC = () => {
+  const { request_id } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(request_id);
+  }, []);
   return (
     <div className="new-request__container">
       <h4>リクエスト詳細</h4>
@@ -183,6 +189,7 @@ const RequestInfo: FC = () => {
         <Button
           variant="contained"
           className="button"
+          onClick={() => navigate("review")}
         >
           レビュー
         </Button>

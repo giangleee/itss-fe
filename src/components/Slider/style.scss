@@ -1,5 +1,5 @@
 $active-color: #b8ba4ba6;
-.active {
+.menu-item__container.active {
     background-color: $active-color;
     transition: all 0.1s ease-in-out;
     font-weight: 700;
