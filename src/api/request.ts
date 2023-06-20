@@ -1,4 +1,4 @@
-import { Staff } from "../types";
+import { RatingType, Staff } from "../types";
 import instance from "./instance";
 
 export const getListApplyStaff = (_requestId: string) => {
@@ -6,10 +6,26 @@ export const getListApplyStaff = (_requestId: string) => {
   return instance.get(url);
 };
 
+export const getStaffById = (_id: string) => {
+  const url = `/staff?_id=${_id}`;
+  return instance.get(url);
+};
+
 export const getListProgress = () => {
   const url = `/request/list-progess`;
   return instance.get(url);
 };
+
+export const createReview = (review: RatingType) => {
+  const url = `/ratting/create`;
+  return instance.post(url, review)
+}
+export const getListOwnerHistoryRequest = (_id: string) => {
+  const url = `/request/user?user_id=${_id}`;
+  return instance.get(url);
+};
+
+
 export const getListStaff = async ({ gender, age, star }: { gender?: string; age?: number; star?: number }) => {
   const url = "/staff/list-staff?";
   const res = await instance.get(url);
