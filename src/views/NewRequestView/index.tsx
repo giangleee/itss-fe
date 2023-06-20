@@ -7,6 +7,8 @@ import AnotherConditionComponent from '../../components/Request/AnotherCondition
 import { Button } from '@mui/material';
 
 const NewRequestView : FC = () => {
+    console.log('NewRequestView');
+    
     return (
         <div className="new-request__container">
             <h4>新しいリクエスト</h4>

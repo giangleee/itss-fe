@@ -5,13 +5,18 @@ import "./style.scss";
 import React, { useEffect } from "react";
 import { createReview, getStaffById } from "../../api/request";
 import { RatingType } from "../../types";
+import { useParams } from "react-router-dom";
 
 const RequestList = () => {
+  const { request_id } = useParams();
   const [staff, setStaff] = React.useState<any>();
   const [rating, setRating] = React.useState<number>(0);
   const [comment, setComment] = React.useState<string>("");
   const [validateComment, setValidateComment] = React.useState<boolean>(false);
   const [payload, setPayload] = React.useState<RatingType>({});
+  useEffect(() => {
+    console.log(request_id);
+  }, []);
 
   useEffect(() => {
     const getorder = async () => {

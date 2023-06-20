@@ -5,7 +5,46 @@ import "./style.scss";
 import React, { useEffect } from "react";
 import { getListApplyStaff } from "../../api/request";
 import { ceil } from "lodash";
+import { useParams } from "react-router-dom";
 
+const ageList = [
+  {
+    value: 0,
+    label: "18-30",
+  },
+  {
+    value: 1,
+    label: "30-45",
+  },
+  {
+    value: 2,
+    label: "45-60",
+  },
+];
+const genderList = [
+  {
+    value: 0,
+    label: "Male",
+  },
+  {
+    value: 1,
+    label: "Female",
+  },
+];
+const ratingList = [
+  {
+    value: 0,
+    label: "2+",
+  },
+  {
+    value: 1,
+    label: "3+",
+  },
+  {
+    value: 2,
+    label: "4+",
+  },
+];
 const RequestList = () => {
   const [age, setAge] = React.useState<number | null>(null);
   const [gender, setGender] = React.useState<number | null>(null);
@@ -13,46 +52,7 @@ const RequestList = () => {
   const [currentPage, setCurrentPage] = React.useState<number>(0);
   const [displayData, setDisplayData] = React.useState<any[]>([]);
   const [data, setData] = React.useState<any[]>([]);
-
-  const ageList = [
-    {
-      value: 0,
-      label: "18-30",
-    },
-    {
-      value: 1,
-      label: "30-45",
-    },
-    {
-      value: 2,
-      label: "45-60",
-    },
-  ];
-  const genderList = [
-    {
-      value: 0,
-      label: "Male",
-    },
-    {
-      value: 1,
-      label: "Female",
-    },
-  ];
-  const ratingList = [
-    {
-      value: 0,
-      label: "2+",
-    },
-    {
-      value: 1,
-      label: "3+",
-    },
-    {
-      value: 2,
-      label: "4+",
-    },
-  ];
-
+  const { request_id } = useParams();
   const calculate_age = (dob: any): number => {
     const birthDate = new Date(dob);
     const difference = Date.now() - birthDate.getTime();
@@ -62,8 +62,9 @@ const RequestList = () => {
   };
 
   useEffect(() => {
+    if (request_id == null) return;
     const getorder = async () => {
-      const response = await getListApplyStaff("647cc8ef3b110b431de84033");
+      const response = await getListApplyStaff(request_id);
       const { data: res } = response;
 
       setData(
@@ -129,7 +130,6 @@ const RequestList = () => {
     ]);
     setCurrentPage(0);
   };
-
   return (
     <div className="container-fluid">
       <div className="request__container">

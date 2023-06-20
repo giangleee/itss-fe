@@ -12,12 +12,13 @@ import "./style.scss";
 import React, { useEffect } from "react";
 import { getListApplyStaff, getListProgress } from "../../api/request";
 import { ceil } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const RequestListWithoutAccept = () => {
   const [currentPage, setCurrentPage] = React.useState<number>(0);
   const [displayData, setDisplayData] = React.useState<any[]>([]);
   const [data, setData] = React.useState<any[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getorder = async () => {
       const response = await getListProgress();
@@ -36,13 +37,15 @@ const RequestListWithoutAccept = () => {
             className="pt-0"
             sx={{ width: "100%" }}
           >
-            {displayData.map((item: any, index: number) => {
+            {displayData.map((item, index: number) => {
+              const _id = item._id;
               if (
                 index === currentPage * 3 + 1 ||
                 index === currentPage * 3 + 0
               )
                 return (
                   <ListItem
+                    key={index}
                     alignItems="flex-start"
                     className="mb-3"
                     sx={{
@@ -172,7 +175,7 @@ const RequestListWithoutAccept = () => {
                               style={{
                                 backgroundColor: "#FF7008",
                               }}
-
+                              onClick={() => {navigate(`${_id}/apply-staff`)}}
                             >
                               見る
                             </Button>

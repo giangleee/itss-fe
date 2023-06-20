@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import type { FC } from "react";
 import Loadable from "../components/Loadable";
-import StaffLayout from "../components/Staff";
 
 interface MainRoutesInterface {
   path: string;
@@ -12,9 +11,10 @@ const Sample = Loadable(lazy(() => import("../views/SampleView")));
 const NewRequestView = Loadable(lazy(() => import("../views/NewRequestView")));
 const RequestList = Loadable(lazy(() => import("../views/RequestListView")));
 const RequestListWithoutAccept = Loadable(lazy(() => import("../views/RequestListWithoutAccept")));
-const RequestInfo = Loadable(lazy(() => import('../views/RequestInfo/RequestInfo')));
+const RequestInfo = Loadable(lazy(() => import("../views/RequestInfo/RequestInfo")));
 const Review = Loadable(lazy(() => import("../views/Review")));
 const RequestHistory = Loadable(lazy(() => import("../views/RequestHistory")));
+const StaffLayout = Loadable(lazy(() => import("../components/Staff")));
 
 const MainRoutes: Array<MainRoutesInterface> = [
   { path: "/", component: Sample },
@@ -22,14 +22,13 @@ const MainRoutes: Array<MainRoutesInterface> = [
     path: "/staff/*",
     component: StaffLayout,
   },
-  { path: "/profile", component: Sample },
-  { path: "/request-list-staff", component: RequestList },
+  { path: "/profile", component: () => <h1>Profile</h1> },
   { path: "/request/new", component: NewRequestView },
-  { path: "/request-list-without-accept", component: RequestListWithoutAccept },
-  { path: "/request-list", component: RequestList },
-  { path: "/request/id", component: RequestInfo},
-  { path: "/review", component: Review },
-  { path: "/request-history", component: RequestHistory },
+  { path: "/request/pending", component: RequestListWithoutAccept },
+  { path: "/request/pending/:request_id/apply-staff", component: RequestList },
+  { path: "/request/history", component: RequestHistory },
+  { path: "/request/history/:request_id", component: RequestInfo },
+  { path: "/request/history/:request_id/review", component: Review },
 ];
 
 export default MainRoutes;
