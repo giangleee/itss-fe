@@ -1,0 +1,23 @@
+.new-request__container {
+    background-color: white;
+    height: 600px;
+    padding: 30px 50px;
+
+    h4 {
+        text-align: center;
+        font-weight: 900;
+        font-size: 28px;
+    }
+
+    .button__container {
+        padding-top: 20px;
+        .button {
+            width: 20%;
+            background-color: #FFA62B;
+        }
+    }
+
+    .form-control__name {
+        column-gap: 24px;
+    }
+}

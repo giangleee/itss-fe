@@ -12,6 +12,7 @@ const Sample = Loadable(lazy(() => import("../views/SampleView")));
 const NewRequestView = Loadable(lazy(() => import("../views/NewRequestView")));
 const RequestList = Loadable(lazy(() => import("../views/RequestListView")));
 const RequestListWithoutAccept = Loadable(lazy(() => import("../views/RequestListWithoutAccept")));
+const RequestInfo = Loadable(lazy(() => import('../views/RequestInfo/RequestInfo')));
 const Review = Loadable(lazy(() => import("../views/Review")));
 const RequestHistory = Loadable(lazy(() => import("../views/RequestHistory")));
 
@@ -26,6 +27,7 @@ const MainRoutes: Array<MainRoutesInterface> = [
   { path: "/request/new", component: NewRequestView },
   { path: "/request-list-without-accept", component: RequestListWithoutAccept },
   { path: "/request-list", component: RequestList },
+  { path: "/request/id", component: RequestInfo},
   { path: "/review", component: Review },
   { path: "/request-history", component: RequestHistory },
 ];
