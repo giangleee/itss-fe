@@ -5,7 +5,8 @@ import "./style.scss";
 import { useEffect } from "react";
 import { getListOwnerHistoryRequest } from "../../api/request";
 import React from "react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 const RequestHistory = () => {
   const [displayData, setDisplayData] = React.useState<any[]>([]);
   const [data, setData] = React.useState<any[]>([]);
@@ -44,6 +45,7 @@ const RequestHistory = () => {
 
   return (
     <div>
+        <div className="bg-white row ms-2 w-25 title text-center align-self-center mb-4" > <span className="align-self-center"><b><FontAwesomeIcon className="pe-2" icon={faUser} />リクエスト履歴 </b></span></div>
       <Paper sx={{ width: "100%", overflow: "hidden", height: "100% !improtant", border: "4px solid" }}>
         <TableContainer sx={{ height: "100%" }}>
           <Table
@@ -69,6 +71,7 @@ const RequestHistory = () => {
               {displayData.map((row) => {
                 return (
                   <TableRow
+                  className="mt-2"
                     hover
                     tabIndex={-1}
                     key={row.code}

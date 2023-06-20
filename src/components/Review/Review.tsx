@@ -6,6 +6,9 @@ import React, { useEffect } from "react";
 import { createReview, getStaffById } from "../../api/request";
 import { RatingType } from "../../types";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const RequestList = () => {
   const [staff, setStaff] = React.useState<any>();
   const [rating, setRating] = React.useState<number>(0);
@@ -59,9 +62,11 @@ const RequestList = () => {
       const { data } = await createReview(payload);
       if (data?.message == "Create review successfully") {
         console.log("thành công");
+        toast.success("成功した!");
       }
     } catch (error) {
       console.log("lỗi");
+      toast.error("エラー!");
     }
   };
 
@@ -71,7 +76,7 @@ const RequestList = () => {
         <div className="h3 row text-center py-4">
           <b>レビュー</b>
         </div>
-        <div className="row h-100 w-100 my-3">
+        <div className="row  w-100 my-3">
           <div className="col-3 align-self-center text-center  ps-5">
             <Avatar
               sx={{ width: 120, height: 120, margin: "auto" }}
@@ -107,7 +112,7 @@ const RequestList = () => {
             </div>
           </div>
         </div>
-        <div className="row h-100 w-100 my-3">
+        <div className="row  w-100 my-3">
           <div className="col-3 text-center ps-5 align-self-center">
             <span className="h4 align-self-center">評価</span>
           </div>
@@ -122,7 +127,7 @@ const RequestList = () => {
             />
           </div>
         </div>
-        <div className="row h-100 w-100 my-3">
+        <div className="row  w-100 my-3">
           <div className="col-3 text-center ps-5 align-self-center">
             <span className="h4 align-self-center">コメント</span>
           </div>
@@ -145,7 +150,7 @@ const RequestList = () => {
         </div>
       </div>
       <div>
-        <div className="row h-100 w-100 mb-3">
+        <div className="row  w-100 mb-3">
           <div className="d-flex justify-content-evenly me-0 pe-0 w-100">
             <Button
               sx={{
@@ -153,6 +158,7 @@ const RequestList = () => {
                 width: "150px",
                 height: "45px",
               }}
+              disabled={validateComment}
               size="large"
               variant="contained"
               style={{
@@ -180,6 +186,7 @@ const RequestList = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
