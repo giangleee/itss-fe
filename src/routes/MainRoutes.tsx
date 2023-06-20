@@ -12,6 +12,7 @@ const Sample = Loadable(lazy(() => import("../views/SampleView")));
 const NewRequestView = Loadable(lazy(() => import("../views/NewRequestView")));
 const RequestList = Loadable(lazy(() => import("../views/RequestListView")));
 const RequestListWithoutAccept = Loadable(lazy(() => import("../views/RequestListWithoutAccept")));
+const Review = Loadable(lazy(() => import("../views/Review")));
 
 const MainRoutes: Array<MainRoutesInterface> = [
   { path: "/", component: Sample },
@@ -24,6 +25,7 @@ const MainRoutes: Array<MainRoutesInterface> = [
   { path: "/request/new", component: NewRequestView },
   { path: "/request-list-without-accept", component: RequestListWithoutAccept },
   { path: "/request-list", component: RequestList },
+  { path: "/review", component: Review },
 ];
 
 export default MainRoutes;
