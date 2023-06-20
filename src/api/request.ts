@@ -20,6 +20,10 @@ export const createReview = (review: RatingType) => {
   const url = `/ratting/create`;
   return instance.post(url, review)
 }
+export const getListOwnerHistoryRequest = (_id: string) => {
+  const url = `/request/user?user_id=${_id}`;
+  return instance.get(url);
+};
 
 
 export const getListStaff = async ({ gender, age, star }: { gender?: string; age?: number; star?: number }) => {
