@@ -33,6 +33,18 @@ export type RatingType = {
   user_id?: string;
   staff_id?: string;
   request_id?: string;
-  data?: any
+  data?: any;
 };
 
+export type ReviewType = {
+  _id: string;
+  user: {
+    fullname: string;
+    avatar: string;
+    address: string;
+  };
+  ratting: number;
+  comment: string;
+  updatedAt: string;
+  createdAt: string;
+};

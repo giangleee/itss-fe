@@ -23,12 +23,12 @@ const MainRoutes: Array<MainRoutesInterface> = [
     component: StaffLayout,
   },
   { path: "/profile", component: () => <h1>Profile</h1> },
-  { path: "/request/new", component: NewRequestView },
-  { path: "/request/pending", component: RequestListWithoutAccept },
-  { path: "/request/pending/:request_id/apply-staff", component: RequestList },
-  { path: "/request/history", component: RequestHistory },
-  { path: "/request/history/:request_id", component: RequestInfo },
-  { path: "/request/history/:request_id/review", component: Review },
+  { path: "/new", component: NewRequestView },
+  { path: "/pending", component: RequestListWithoutAccept },
+  { path: "/pending/:request_id/apply-staff", component: RequestList },
+  { path: "/history", component: RequestHistory },
+  { path: "/history/:request_id", component: RequestInfo },
+  { path: "/history/:request_id/review", component: Review },
 ];
 
 export default MainRoutes;
