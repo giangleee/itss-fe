@@ -5,7 +5,7 @@ import "./style.scss";
 import React, { useEffect } from "react";
 import { createReview, getStaffById } from "../../api/request";
 import { RatingType } from "../../types";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +17,9 @@ const RequestList = () => {
   const [comment, setComment] = React.useState<string>("");
   const [validateComment, setValidateComment] = React.useState<boolean>(false);
   const [payload, setPayload] = React.useState<RatingType>({});
+  const navigate = useNavigate();
+
+  
   useEffect(() => {
     console.log(request_id);
   }, []);
@@ -181,7 +184,8 @@ const RequestList = () => {
               }}
               className="px-3"
               size="large"
-              variant="outlined"
+          onClick={() => navigate(-1)}
+          variant="outlined"
               style={{
                 borderColor: "#FF7008",
               }}

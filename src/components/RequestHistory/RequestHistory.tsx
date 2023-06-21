@@ -33,7 +33,7 @@ const RequestHistory = () => {
         res?.data.map((item: any) => {
           return {
             id: item?._id,
-            name: item?.staff_detail?.fullname,
+            name: item?.staff_detail[0]?.fullname,
             time: item?.request_detail?.request_detail_data.work_time,
             status: item?.request_detail?.request_detail_data.status,
           };
