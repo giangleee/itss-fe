@@ -2,10 +2,20 @@ import { FC } from "react";
 import { Avatar, Paper, Rating, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getStaffReviews } from "../../../api/request";
+import { useQuery } from "@tanstack/react-query";
 const ReviewGroup: FC = () => {
+  const { staff_id } = useParams();
   const navigate = useNavigate();
-
+  const { data } = useQuery(
+    ["getReview"],
+    () => {
+      if (!staff_id) return Promise.resolve([]);
+      return getStaffReviews(staff_id);
+    },
+    { initialData: [] },
+  );
   return (
     <div className="flex-1 flex gap-3 flex-col">
       <Paper
@@ -16,16 +26,12 @@ const ReviewGroup: FC = () => {
         <Typography className="font-bold hover:font-extrabold">情報</Typography>
       </Paper>
       <Paper className="flex-1 bg-slate-200 overflow-y-scroll">
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
+        {data.map((review) => (
+          <ReviewItem
+            {...review}
+            key={review._id}
+          />
+        ))}
       </Paper>
     </div>
   );

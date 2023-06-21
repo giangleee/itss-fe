@@ -37,7 +37,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
         height="40"
       />
     ),
-    router: "request/new",
+    router: "new",
   },
   {
     text: "リクエスト歴史",
@@ -47,7 +47,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
         height="40"
       />
     ),
-    router: "request/history",
+    router: "history",
   },
   {
     text: "スタッフからのリクエスト",
@@ -57,7 +57,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
         height="40"
       />
     ),
-    router: "request/pending",
+    router: "pending",
   },
 ];
 
