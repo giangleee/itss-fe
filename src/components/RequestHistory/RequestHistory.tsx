@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { getListOwnerHistoryRequest } from "../../api/request";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 const columns: readonly any[] = [
   { id: "id", label: "Id", minWidth: "20%", align: "center" },
   { id: "name", label: "スタッフ", minWidth: "30%", align: "center" },
@@ -43,6 +45,7 @@ const RequestHistory = () => {
 
   return (
     <div>
+        <div className="bg-white row ms-2 w-25 title text-center align-self-center mb-4" > <span className="align-self-center"><b><FontAwesomeIcon className="pe-2" icon={faUser} />リクエスト履歴 </b></span></div>
       <Paper sx={{ width: "100%", overflow: "hidden", height: "100% !improtant", border: "4px solid" }}>
         <TableContainer sx={{ height: "100%" }}>
           <Table
@@ -69,6 +72,7 @@ const RequestHistory = () => {
                 const id = row.id;
                 return (
                   <TableRow
+                  className="mt-2"
                     hover
                     tabIndex={-1}
                     key={i}

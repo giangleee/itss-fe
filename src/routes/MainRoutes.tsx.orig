@@ -1,0 +1,41 @@
+import { lazy } from "react";
+import type { FC } from "react";
+import Loadable from "../components/Loadable";
+import StaffLayout from "../components/Staff";
+
+interface MainRoutesInterface {
+  path: string;
+  component: FC;
+}
+
+const Sample = Loadable(lazy(() => import("../views/SampleView")));
+const NewRequestView = Loadable(lazy(() => import("../views/NewRequestView")));
+const RequestList = Loadable(lazy(() => import("../views/RequestListView")));
+const RequestListWithoutAccept = Loadable(lazy(() => import("../views/RequestListWithoutAccept")));
+<<<<<<< HEAD
+const Review = Loadable(lazy(() => import("../views/Review")));
+const RequestHistory = Loadable(lazy(() => import("../views/RequestHistory")));
+=======
+const RequestInfo = Loadable(lazy(() => import('../views/RequestInfo/RequestInfo')));
+>>>>>>> feat/request-info
+
+const MainRoutes: Array<MainRoutesInterface> = [
+  { path: "/", component: Sample },
+  {
+    path: "/staff/*",
+    component: StaffLayout,
+  },
+  { path: "/profile", component: Sample },
+  { path: "/request-list-staff", component: RequestList },
+  { path: "/request/new", component: NewRequestView },
+  { path: "/request-list-without-accept", component: RequestListWithoutAccept },
+  { path: "/request-list", component: RequestList },
+<<<<<<< HEAD
+  { path: "/review", component: Review },
+  { path: "/request-history", component: RequestHistory },
+=======
+  { path: "/request/id", component: RequestInfo},
+>>>>>>> feat/request-info
+];
+
+export default MainRoutes;
