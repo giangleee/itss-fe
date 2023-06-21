@@ -20,6 +20,7 @@
     "noFallthroughCasesInSwitch": true,
     "outDir": "dist"
   },
+  "types": ["node", "react", "@types"],
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

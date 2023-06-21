@@ -25,6 +25,11 @@ export const getListOwnerHistoryRequest = (_id: string) => {
   return instance.get(url);
 };
 
+export const getRequestById = (_id: string) => {
+  const url = `/request?request_id=${_id}`;
+  return instance.get(url);
+};
+
 export const getListStaff = async ({ gender, age, star }: { gender?: string; age?: number; star?: number }) => {
   const url = "/staff/list-staff?";
   const res = await instance.get(url);

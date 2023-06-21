@@ -2,12 +2,21 @@ import "./style.scss";
 import { FC, useEffect } from "react";
 import { Button, FormControl, Grid, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
+import { getRequestById } from "../../api/request";
 
 const RequestInfo: FC = () => {
+  const [request, setRequest] = React.useState<any>();
   const { request_id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(request_id);
+    const getRequest = async () => {
+      const response = await getRequestById("648f3d808b680f001c1a1abd");
+      const { data: res } = response;
+      console.log(res?.data);
+      setRequest(res?.data[0]);
+    };
+    getRequest();
   }, []);
   return (
     <div className="new-request__container">
@@ -22,19 +31,22 @@ const RequestInfo: FC = () => {
             className="w-full"
           >
             <Typography
-              variant="h5"
+              variant="subtitle1"
               component="h5"
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-              スタッフ
+              <b>スタッフ</b>
             </Typography>
             <TextField
+              InputProps={{
+                readOnly: true,
+              }}
               fullWidth
               id="outlined-multiline-static"
               multiline
               rows={1}
-              defaultValue="Default Value"
+              defaultValue={request?.request_detail?.staff_detail?.fullname}
             />
           </Grid>
           <Grid
@@ -42,19 +54,22 @@ const RequestInfo: FC = () => {
             className="w-full"
           >
             <Typography
-              variant="h5"
+              variant="subtitle1"
               component="h5"
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-              スターテス
+              <b>スターテス</b>
             </Typography>
             <TextField
+              InputProps={{
+                readOnly: true,
+              }}
               fullWidth
               id="outlined-multiline-static"
               multiline
               rows={1}
-              defaultValue="Default Value"
+              defaultValue={request?.request_detail?.status == 1 ? '実行中' : '完了'}
             />
           </Grid>
         </FormControl>
@@ -63,19 +78,22 @@ const RequestInfo: FC = () => {
         <FormControl fullWidth>
           <Grid item>
             <Typography
-              variant="h5"
+              variant="subtitle1"
               component="h5"
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-              仕事の詳細
+              <b>仕事の詳細</b>
             </Typography>
             <TextField
+              InputProps={{
+                readOnly: true,
+              }}
               fullWidth
               id="outlined-multiline-static"
               multiline
               rows={3}
-              defaultValue="Default Value"
+              defaultValue={request?.request_detail?.policy}
             />
           </Grid>
         </FormControl>
@@ -91,12 +109,12 @@ const RequestInfo: FC = () => {
             className="w-full"
           >
             <Typography
-              variant="h5"
+              variant="subtitle1"
               component="h5"
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-              時間
+              <b>時間</b>
             </Typography>
             <div className="flex items-center">
               <Grid
@@ -104,19 +122,22 @@ const RequestInfo: FC = () => {
                 className="flex items-center justify-between"
               >
                 <Typography
-                  variant="h5"
+                  variant="subtitle1"
                   component="h5"
                   sx={{ padding: "5px" }}
                   className="typo-custom"
                 >
-                  から
+                  <b>から</b>
                 </Typography>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   fullWidth
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue="Default Value"
+                  defaultValue={request?.request_detail?.work_time.split('-')[0]}
                   className="w-8/12"
                 />
               </Grid>
@@ -125,19 +146,22 @@ const RequestInfo: FC = () => {
                 className="flex items-center justify-between"
               >
                 <Typography
-                  variant="h5"
+                  variant="subtitle1"
                   component="h5"
                   sx={{ padding: "5px" }}
                   className="typo-custom"
                 >
-                  まで
+                  <b>まで</b>
                 </Typography>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   fullWidth
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue="Default Value"
+                  defaultValue={request?.request_detail?.work_time.split('-')[1]}
                   className="w-8/12"
                 />
               </Grid>
@@ -148,19 +172,22 @@ const RequestInfo: FC = () => {
             className="w-full"
           >
             <Typography
-              variant="h5"
+              variant="subtitle1"
               component="h5"
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-              給料
+              <b>給料</b>
             </Typography>
             <TextField
+              InputProps={{
+                readOnly: true,
+              }}
               fullWidth
               id="outlined-multiline-static"
               multiline
               rows={1}
-              defaultValue="Default Value"
+              defaultValue={request?.request_detail?.salary}
             />
           </Grid>
         </FormControl>
@@ -169,17 +196,20 @@ const RequestInfo: FC = () => {
         <FormControl fullWidth>
           <Grid item>
             <Typography
-              variant="h5"
-              component="h5"
+              variant="subtitle1"
+              component="h6"
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-              その他の注意事項
+             <b>その他の注意事項</b> 
             </Typography>
             <TextField
+              InputProps={{
+                readOnly: true,
+              }}
               fullWidth
               id="outlined-multiline-static"
-              defaultValue="Default Value"
+              defaultValue={request?.request_detail?.other_note}
               rows={2}
             />
           </Grid>
@@ -196,6 +226,7 @@ const RequestInfo: FC = () => {
         <Button
           variant="contained"
           className="button"
+          onClick={() => navigate(-1)}
         >
           バック
         </Button>
