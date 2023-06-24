@@ -1,12 +1,11 @@
 import { Button, Paper, Skeleton } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import avatar from "../../assets/img/avatar.png";
 import { PropsWithChildren } from "react";
 import { Staff } from "../../types";
 import Contact from "./Contact";
 const StaffCard = ({ staff }: { staff: Staff }) => {
   const age = staff.age ? staff.age : new Date().getFullYear() - new Date(staff.date_of_birth).getFullYear();
-  const navigate = useNavigate();
   return (
     <Paper
       elevation={3}

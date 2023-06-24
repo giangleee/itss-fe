@@ -1,52 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-debugger */
-import { Autocomplete, Avatar, Button, List, ListItem, Pagination, Rating, TextField } from "@mui/material";
+import { Avatar, Button, List, ListItem, Pagination, Rating } from "@mui/material";
 import "./style.scss";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getListApplyStaff } from "../../api/request";
-import { ceil, filter } from "lodash";
+import { ceil } from "lodash";
 import { useParams } from "react-router-dom";
 import Filter from "../Filter";
 import { FilterType } from "../../types";
 
-const ageList = [
-  {
-    value: 0,
-    label: "18-30",
-  },
-  {
-    value: 1,
-    label: "30-45",
-  },
-  {
-    value: 2,
-    label: "45-60",
-  },
-];
-const genderList = [
-  {
-    value: 0,
-    label: "Male",
-  },
-  {
-    value: 1,
-    label: "Female",
-  },
-];
-const ratingList = [
-  {
-    value: 0,
-    label: "2+",
-  },
-  {
-    value: 1,
-    label: "3+",
-  },
-  {
-    value: 2,
-    label: "4+",
-  },
-];
 const RequestList = () => {
   // const [age, setAge] = useState<number | null>(null);
   // const [gender, setGender] = useState<number | null>(null);
