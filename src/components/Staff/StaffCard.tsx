@@ -3,16 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import avatar from "../../assets/img/avatar.png";
 import { PropsWithChildren } from "react";
 import { Staff } from "../../types";
+import Contact from "./Contact";
 const StaffCard = ({ staff }: { staff: Staff }) => {
   const age = staff.age ? staff.age : new Date().getFullYear() - new Date(staff.date_of_birth).getFullYear();
   const navigate = useNavigate();
   return (
     <Paper
       elevation={3}
-      className="w-1/4 h-full rounded-xl flex items-stretch flex-col hover:shadow-slate-900 hover:shadow-md hover:cursor-pointer transition-shadow"
-      onClick={() => {
-        navigate(`/staff/${staff._id}`);
-      }}
+      className="w-1/4 h-full rounded-xl flex items-stretch flex-col hover:shadow-slate-900 hover:shadow-md transition-shadow"
     >
       <div className="flex justify-center items-center">
         <img
@@ -35,20 +33,11 @@ const StaffCard = ({ staff }: { staff: Staff }) => {
         </p>
         <Styledb>電話番号</Styledb>
         <p className="ml-1">{staff.phone_number}</p>
-        <div className="flex flex-row gap-3 mt-2 justify-center">
-          <img
-            className="w-8"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
-          />
-          <img
-            className="w-8"
-            src="https://static-00.iconduck.com/assets.00/instagram-icon-1024x1024-8qt57uwd.png"
-          />
-          <img
-            className="w-8"
-            src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png"
-          />
-        </div>
+        <Contact
+          facebook={staff.facebook}
+          instagram={staff.twitter}
+          twitter={staff.twitter}
+        />
       </div>
       <Button
         variant="contained"

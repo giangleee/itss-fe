@@ -2,10 +2,12 @@
 /* eslint-disable no-debugger */
 import { Autocomplete, Avatar, Button, List, ListItem, Pagination, Rating, TextField } from "@mui/material";
 import "./style.scss";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getListApplyStaff } from "../../api/request";
-import { ceil } from "lodash";
+import { ceil, filter } from "lodash";
 import { useParams } from "react-router-dom";
+import Filter from "../Filter";
+import { FilterType } from "../../types";
 
 const ageList = [
   {
@@ -46,12 +48,13 @@ const ratingList = [
   },
 ];
 const RequestList = () => {
-  const [age, setAge] = React.useState<number | null>(null);
-  const [gender, setGender] = React.useState<number | null>(null);
-  const [rating, setRating] = React.useState<number | null>(null);
-  const [currentPage, setCurrentPage] = React.useState<number>(0);
-  const [displayData, setDisplayData] = React.useState<any[]>([]);
-  const [data, setData] = React.useState<any[]>([]);
+  // const [age, setAge] = useState<number | null>(null);
+  // const [gender, setGender] = useState<number | null>(null);
+  // const [rating, setRating] = useState<number | null>(null);
+  const [filter, setFilter] = useState<FilterType>({});
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [displayData, setDisplayData] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const { request_id } = useParams();
   const calculate_age = (dob: any): number => {
     const birthDate = new Date(dob);
@@ -62,7 +65,7 @@ const RequestList = () => {
   };
 
   useEffect(() => {
-    if (request_id == null) return;
+    if (!request_id) return;
     const getorder = async () => {
       const response = await getListApplyStaff(request_id);
       const { data: res } = response;
@@ -75,136 +78,72 @@ const RequestList = () => {
       setDisplayData(res?.data);
     };
     getorder();
-  }, []);
+  }, [request_id]);
 
-  const handleFilter = () => {
-    let filterData = [...data];
-    if (age != null) {
-      if (age === 0) {
-        filterData = filterData?.filter((item: any) => {
-          return calculate_age(item.date_of_birth) >= 18 && calculate_age(item.date_of_birth) <= 29;
-        });
-      } else if (age === 1) {
-        filterData = filterData?.filter((item: any) => {
-          return calculate_age(item.date_of_birth) >= 30 && calculate_age(item.date_of_birth) <= 44;
-        });
-      } else if (age === 2) {
-        filterData = filterData?.filter((item: any) => {
-          return calculate_age(item.date_of_birth) >= 45 && calculate_age(item.date_of_birth) <= 60;
-        });
+  useEffect(() => {
+    const handleFilter = ({ age, gender, star: rating }: FilterType) => {
+      let filterData = [...data];
+      if (age) {
+        if (age === 30) {
+          filterData = filterData?.filter((item: any) => {
+            return calculate_age(item.date_of_birth) >= 18 && calculate_age(item.date_of_birth) <= 29;
+          });
+        } else if (age === 45) {
+          filterData = filterData?.filter((item: any) => {
+            return calculate_age(item.date_of_birth) >= 30 && calculate_age(item.date_of_birth) <= 44;
+          });
+        } else if (age === 60) {
+          filterData = filterData?.filter((item: any) => {
+            return calculate_age(item.date_of_birth) >= 45 && calculate_age(item.date_of_birth) <= 60;
+          });
+        }
       }
-    }
 
-    if (gender != null) {
-      if (gender === 0) {
-        filterData = filterData?.filter((item: any) => {
-          return item.gender === "Male";
-        });
-      } else if (gender === 1) {
-        filterData = filterData?.filter((item: any) => {
-          return item.gender === "Female";
-        });
+      if (gender) {
+        if (gender === "Male") {
+          filterData = filterData?.filter((item: any) => {
+            return item.gender === "Male";
+          });
+        } else if (gender === "Female") {
+          filterData = filterData?.filter((item: any) => {
+            return item.gender === "Female";
+          });
+        }
       }
-    }
 
-    if (rating != null) {
-      if (rating === 0) {
-        filterData = filterData?.filter((item: any) => {
-          return item.rating_avg >= 2;
-        });
-      } else if (rating === 1) {
-        filterData = filterData?.filter((item: any) => {
-          return item.rating_avg >= 3;
-        });
-      } else if (rating === 2) {
-        filterData = filterData?.filter((item: any) => {
-          return item.rating_avg >= 4;
-        });
+      if (rating) {
+        if (rating === 2) {
+          filterData = filterData?.filter((item: any) => {
+            return item.rating_avg >= 2;
+          });
+        } else if (rating === 3) {
+          filterData = filterData?.filter((item: any) => {
+            return item.rating_avg >= 3;
+          });
+        } else if (rating === 4) {
+          filterData = filterData?.filter((item: any) => {
+            return item.rating_avg >= 4;
+          });
+        }
       }
-    }
 
-    setDisplayData([
-      ...filterData.sort((a: any, b: any) => {
-        return a.rating_avg - b.rating_avg;
-      }),
-    ]);
-    setCurrentPage(0);
-  };
+      setDisplayData([
+        ...filterData.sort((a: any, b: any) => {
+          return a.rating_avg - b.rating_avg;
+        }),
+      ]);
+      setCurrentPage(0);
+    };
+    handleFilter(filter);
+  }, [data, filter]);
   return (
     <div className="container-fluid">
       <div className="request__container">
         <div className="request__container-header">
-          <div className="row">
-            <div className="col-4 align-self-end">
-              <b>受信したリクエストの数: {displayData?.length}</b>
-            </div>
-            <div className="col-8">
-              <div className="row">
-                {/* <div className="col-1">
-              </div> */}
-
-                <div className="col-3">
-                  <Autocomplete
-                    id="gender-filter"
-                    size="small"
-                    options={genderList}
-                    getOptionLabel={(option) => option.label}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="性別"
-                      />
-                    )}
-                    onChange={(_, newValue) => {
-                      setGender(newValue?.value ?? null);
-                    }}
-                  />
-                </div>
-                <div className="col-3">
-                  <Autocomplete
-                    id="age-filter"
-                    size="small"
-                    options={ageList}
-                    getOptionLabel={(option: any) => option.label}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="年"
-                      />
-                    )}
-                    onChange={(_, newValue: any) => {
-                      setAge(newValue?.value ?? null);
-                    }}
-                  />
-                </div>
-                <div className="col-3">
-                  <Autocomplete
-                    id="rating-filter"
-                    size="small"
-                    options={ratingList}
-                    getOptionLabel={(option) => option.label}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="定格"
-                      />
-                    )}
-                    onChange={(_, newValue: any) => {
-                      setRating(newValue?.value ?? null);
-                    }}
-                  />
-                </div>
-                <div className="col-3">
-                  <Button
-                    className="w-100 bg-[#198754]"
-                    variant="contained"
-                    color="success"
-                    onClick={handleFilter}
-                  >
-                    申し込み
-                  </Button>
-                </div>
-              </div>
+          <div className="flex flex-row items-center">
+            <b>受信したリクエストの数: {displayData?.length}</b>
+            <div className="flex-1">
+              <Filter onChange={setFilter} />
             </div>
           </div>
 

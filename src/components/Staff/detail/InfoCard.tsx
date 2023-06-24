@@ -1,6 +1,7 @@
-import { Paper, Rating, Typography } from '@mui/material';
-import type { FC } from 'react';
+import { Paper, Rating, Typography } from "@mui/material";
+import type { FC } from "react";
 import avatarPlaceholder from "../../../assets/img/avatar.png";
+import Contact from "../Contact";
 type InfoCardProps = {
   avatar?: string;
   fullname: string;
@@ -32,20 +33,11 @@ const InfoCard: FC<InfoCardProps> = ({ fullname, avatar, rating_avg, facebook, i
         readOnly
         value={rating_avg}
       />
-      <div className="flex flex-row gap-3 mt-2 justify-center">
-        <img
-          className="w-8"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
-        />
-        <img
-          className="w-8"
-          src="https://static-00.iconduck.com/assets.00/instagram-icon-1024x1024-8qt57uwd.png"
-        />
-        <img
-          className="w-8"
-          src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png"
-        />
-      </div>
+      <Contact
+        facebook={facebook}
+        instagram={instagram}
+        twitter={twitter}
+      />
     </Paper>
   );
 };
