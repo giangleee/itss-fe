@@ -2,7 +2,7 @@ import { Pagination } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Filter from "./Filter";
+import Filter from "../Filter";
 import StaffList from "./StaffList";
 import { getListStaff } from "../../api/request";
 import { FilterType, Staff } from "../../types";

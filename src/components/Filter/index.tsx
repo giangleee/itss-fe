@@ -79,12 +79,12 @@ const Filter: FC<FilterProps> = ({ onChange }) => {
         onChange={(_, v) => setFilter({ ...filter, star: v?.value })}
       />
       <Button
-        className="w-1/6 bg-[#198754]"
+        className="w-1/6 bg-[#198754] text-base"
         variant="contained"
         color="success"
         onClick={handleSubmitFilter}
       >
-        申し込み
+        検索
       </Button>
     </div>
   );
