@@ -30,24 +30,27 @@ const StaffsView = () => {
     initialData: [],
     refetchOnWindowFocus: false,
   });
+  const handleFilterChange = (query: FilterType) => {
+    setFilter(query);
+    refetch();
+    setCurrentPage(0);
+  };
+  const getPageData = () => data.slice(currentPage * 3, (currentPage + 1) * 3);
+  const calcPageLength = (length = 0) => Math.ceil(length / 3);
   return (
     <div className="bg-transparent w-full h-full flex flex-col items-stretch">
-      <Filter
-        onChange={(query) => {
-          setFilter(query);
-          refetch();
-        }}
-      />
+      <Filter onChange={handleFilterChange} />
       <StaffList
         isLoading={isFetching}
-        data={data.slice(currentPage * 3, (currentPage + 1) * 3)}
+        data={getPageData()}
       />
       <Pagination
         className="mt-3 self-center"
-        count={Math.ceil((data?.length || 0) / 3)}
+        count={calcPageLength(data.length)}
         variant="outlined"
         shape="rounded"
         color="primary"
+        page={Math.floor(currentPage + 1)}
         onChange={(_, value) => {
           setCurrentPage(value - 1);
         }}

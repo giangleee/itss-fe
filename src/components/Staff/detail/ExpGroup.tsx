@@ -1,5 +1,3 @@
-
-
 import { FC } from "react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +7,14 @@ type ExpGroupProps = {
   age: number;
   company_exp: number;
   total_exp: number;
+  skill: string | string[];
 };
-const ExpGroup: FC<ExpGroupProps> = ({ age, company_exp, total_exp }) => {
+const ExpGroup: FC<ExpGroupProps> = ({ age, company_exp, total_exp, skill }) => {
   const navigate = useNavigate();
+  const spreateSkill = (skill: string | string[]) => {
+    if (typeof skill === "string") skill = skill.split(", ");
+    return skill.map((item, index) => <li key={index}>{item}</li>);
+  };
   return (
     <div className="w-5/12 flex-1 bg-transparent flex flex-col gap-3">
       <Paper
@@ -24,11 +27,7 @@ const ExpGroup: FC<ExpGroupProps> = ({ age, company_exp, total_exp }) => {
       <Paper className="flex-1 py-2.5 px-3">
         <Typography className="font-bold">自分取得スキル</Typography>
         <div className="font-extrabold">
-          <ul className="list-disc pl-5 pt-2">
-            <li>スキル 1</li>
-            <li>スキル 2</li>
-            <li>スキル 3</li>
-          </ul>
+          <ul className="list-disc pl-5 pt-2">{spreateSkill(skill)}</ul>
         </div>
       </Paper>
       <Paper className="py-2.5 px-3">

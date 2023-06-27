@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import type { FC } from "react";
+import { Link, Navigate } from "react-router-dom";
 import Loadable from "../components/Loadable";
 
 interface MainRoutesInterface {
@@ -7,7 +8,6 @@ interface MainRoutesInterface {
   component: FC;
 }
 
-const Sample = Loadable(lazy(() => import("../views/SampleView")));
 const NewRequestView = Loadable(lazy(() => import("../views/NewRequestView")));
 const RequestList = Loadable(lazy(() => import("../views/RequestListView")));
 const RequestListWithoutAccept = Loadable(lazy(() => import("../views/RequestListWithoutAccept")));
@@ -17,7 +17,12 @@ const RequestHistory = Loadable(lazy(() => import("../views/RequestHistory")));
 const StaffLayout = Loadable(lazy(() => import("../components/Staff")));
 
 const MainRoutes: Array<MainRoutesInterface> = [
-  { path: "/", component: Sample },
+  {
+    path: "/",
+    component: () => {
+      return <Navigate to="/staff" />;
+    },
+  },
   {
     path: "/staff/*",
     component: StaffLayout,
@@ -29,6 +34,23 @@ const MainRoutes: Array<MainRoutesInterface> = [
   { path: "/history", component: RequestHistory },
   { path: "/history/:request_id", component: RequestInfo },
   { path: "/history/:request_id/review", component: Review },
+  {
+    path: "*",
+    component: () => {
+      return (
+        <div className="flex flex-col w-full h-full items-center justify-evenly">
+          <h1 className="font-mono text-8xl font-extrabold">Not found</h1>
+          <Link to="/">
+            <u>
+              <i>
+                <h1>Back to home</h1>
+              </i>
+            </u>
+          </Link>
+        </div>
+      );
+    },
+  },
 ];
 
 export default MainRoutes;
