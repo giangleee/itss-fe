@@ -17,7 +17,7 @@ export type Staff = {
   address: string;
   company_exp: number;
   total_exp: number;
-  skill?: string[];
+  skill: string[] | string;
 };
 
 export type GenderType = "Male" | "Female" | "Other";
