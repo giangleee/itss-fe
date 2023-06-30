@@ -1,9 +1,11 @@
 import "./style.scss";
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { Button, FormControl, FormHelperText, Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { Formik, Field, Form, FieldProps } from "formik";
 import { validateRule } from "./ValidateRule";
-
+import { JOB_TYPE } from "./JobTypeConst";
+import { createRequest } from "../../api/request";
+import NotificationComponent, { NotificationComponentRef } from "../../components/Notification";
 interface TimeDetailInterface {
   hour: number;
   minute: number;
@@ -18,14 +20,27 @@ interface TimeInterface {
 interface createRequestInterface {
   requestDetail: string;
   time: TimeInterface;
-  salary: string;
+  salary: number;
+  requestJobType: number;
   otherNotes: string;
 }
 
+interface PayloadInterface {
+  job_type: number;
+  request_detail: {
+    work_time: string;
+    salary: number;
+    policy: string;
+    other_note?: string;
+  };
+}
+
 const NewRequestView: FC = () => {
-  const [hour, setHour] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
-  const [minutes, setMinutes] = useState<number[]>([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]);
+  const [hour] = useState<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+  const [minutes] = useState<number[]>([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]);
   const [amOrPm] = useState<string[]>(["午前", "午後"]);
+
+  const notiRef = useRef<NotificationComponentRef>(null);
 
   const initValues = (): createRequestInterface => {
     return {
@@ -42,13 +57,36 @@ const NewRequestView: FC = () => {
           meridiem: "午前",
         },
       },
-      salary: "",
+      salary: 0,
+      requestJobType: JOB_TYPE[0].value,
       otherNotes: "",
     };
   };
 
   const handleSave = async (value: createRequestInterface) => {
     console.log(value);
+
+    const { from, to }: TimeInterface = value.time;
+    const customWorkTime = `${from.hour}:${from.minute} ${from.meridiem} ~ ${to.hour}:${to.minute} ${to.meridiem}`;
+
+    const payload: PayloadInterface = {
+      job_type: value.requestJobType,
+      request_detail: {
+        work_time: customWorkTime,
+        salary: value.salary,
+        policy: value.requestDetail,
+        other_note: value.otherNotes,
+      },
+    };
+
+    try {
+      const { data } = await createRequest(payload);
+      if (data?.message == "Create request successfully") {
+        notiRef.current?.setState("成功した");
+      }
+    } catch (error) {
+      notiRef.current?.setState("エラー");
+    }
   };
 
   return (
@@ -302,9 +340,9 @@ const NewRequestView: FC = () => {
             </Grid>
           </FormControl>
 
-          <Field name="salary">
-            {({ field, meta }: FieldProps<createRequestInterface>) => (
-              <div className="detail-container">
+          <div className="flex gap-x-8">
+            <Field name="salary">
+              {({ field, meta }: FieldProps<createRequestInterface>) => (
                 <FormControl
                   fullWidth
                   error={Boolean(meta.touched && meta.error)}
@@ -327,13 +365,52 @@ const NewRequestView: FC = () => {
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                       inputProps={{}}
+                      InputProps={{
+                        inputMode: "numeric",
+                      }}
+                      type="number"
                     />
                     {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}
                   </Grid>
                 </FormControl>
-              </div>
-            )}
-          </Field>
+              )}
+            </Field>
+            <Field name="requestJobType">
+              {({ field, meta }: FieldProps<createRequestInterface>) => (
+                <FormControl
+                  fullWidth
+                  error={Boolean(meta.touched && meta.error)}
+                >
+                  <Grid item>
+                    <Typography
+                      variant="h5"
+                      component="h5"
+                      sx={{ padding: "5px" }}
+                      className="typo-custom"
+                    >
+                      仕事
+                    </Typography>
+                    <Select
+                      {...field}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      fullWidth
+                    >
+                      {JOB_TYPE.map((item) => (
+                        <MenuItem
+                          value={item.value}
+                          key={item.id}
+                        >
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}
+                  </Grid>
+                </FormControl>
+              )}
+            </Field>
+          </div>
 
           <Field name="otherNotes">
             {({ field, meta }: FieldProps<createRequestInterface>) => (
@@ -379,6 +456,7 @@ const NewRequestView: FC = () => {
           </div>
         </Form>
       </Formik>
+      <NotificationComponent ref={notiRef} />
     </div>
   );
 };
