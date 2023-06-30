@@ -57,6 +57,12 @@ export const getStaffReviews = async (staff_id: string) => {
   return reviewsSample;
   // return res.data.data as ReviewType[];
 };
+
+export const createRequest = async(payload: object) => {
+  const url = '/request'
+
+  return instance.post(url, payload)
+}
 const reviewsSample = [
   {
     _id: "1",
