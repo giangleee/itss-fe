@@ -365,6 +365,10 @@ const NewRequestView: FC = () => {
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                       inputProps={{}}
+                      InputProps={{
+                        inputMode: "numeric",
+                      }}
+                      type="number"
                     />
                     {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}
                   </Grid>
