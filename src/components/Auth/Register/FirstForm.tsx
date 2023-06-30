@@ -57,53 +57,55 @@ const FirstForm: FC<FirstFormProps> = ({ onSubmit }) => {
           <Card className="w-[500px] h-[550px] bg-[#ffffff6c] backdrop-blur-xl px-5 py-6 flex flex-col justify-evenly">
             <Typography
               variant="h3"
-              className="text-center font-bold"
+              className="text-center font-bold py-1"
             >
               登録
             </Typography>
-            <Input
-              name="email"
-              type="email"
-              fullWidth
-              id="mail-input"
-              placeholder="メールアドレス"
-              label="メールアドレス"
-              error={!!errors.email && touched.email}
-              helperText={touched.email && errors.email}
-              onChange={handleChange}
-            />
-            <Input
-              name="password"
-              type="password"
-              fullWidth
-              id="password-input"
-              placeholder="パスワード"
-              label="パスワード"
-              error={!!errors.password && touched.password}
-              helperText={touched.password && errors.password}
-              onChange={handleChange}
-            />
-            <Input
-              name="confirmPassword"
-              type="password"
-              fullWidth
-              id="confirm-password-input"
-              placeholder="パスワード確認"
-              label="パスワード確認"
-              error={!!errors.confirmPassword && touched.confirmPassword}
-              helperText={touched.confirmPassword && errors.confirmPassword}
-              onChange={handleChange}
-            />
-            <Link
-              className="font-medium text-[#3D59C3] hover:underline"
-              to="/login"
-            >
-              アカウントをお持ちの方はこちら
-            </Link>
+            <div className="flex-1 grid grid-cols-1 grid-rows-3">
+              <Input
+                name="email"
+                type="email"
+                fullWidth
+                id="mail-input"
+                placeholder="メールアドレス"
+                label="メールアドレス"
+                error={!!errors.email && touched.email}
+                helperText={touched.email && errors.email}
+                onChange={handleChange}
+              />
+              <Input
+                name="password"
+                type="password"
+                fullWidth
+                id="password-input"
+                placeholder="パスワード"
+                label="パスワード"
+                error={!!errors.password && touched.password}
+                helperText={touched.password && errors.password}
+                onChange={handleChange}
+              />
+              <Input
+                name="confirmPassword"
+                type="password"
+                fullWidth
+                id="confirm-password-input"
+                placeholder="パスワード確認"
+                label="パスワード確認"
+                error={!!errors.confirmPassword && touched.confirmPassword}
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                onChange={handleChange}
+              />
+              <Link
+                className="font-medium text-[#3D59C3] hover:underline"
+                to="/login"
+              >
+                アカウントをお持ちの方はこちら
+              </Link>
+            </div>
             <Button
               disabled={isSubmitting}
               type="submit"
-              className="mt-3 bg-[#ff7008]"
+              className="mt-3 mb-1 bg-[#ff7008]"
               variant="contained"
               style={{ color: "#fff", backgroundColor: "#ff7008" }}
             >

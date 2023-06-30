@@ -34,34 +34,36 @@ const Login = () => {
             >
               ログイン
             </Typography>
-            <Input
-              name="email"
-              type="email"
-              fullWidth
-              id="mail-input"
-              placeholder="メールアドレス"
-              label="メールアドレス"
-              error={!!errors.email && touched.email}
-              helperText={touched.email && errors.email}
-              onChange={handleChange}
-            />
-            <Input
-              name="password"
-              type="password"
-              fullWidth
-              id="password-input"
-              placeholder="パスワード"
-              label="パスワード"
-              error={!!errors.password && touched.password}
-              helperText={touched.password && errors.password}
-              onChange={handleChange}
-            />
+            <div className="grid grid-cols-1 grid-rows-2 h-1/2">
+              <Input
+                name="email"
+                type="email"
+                fullWidth
+                id="mail-input"
+                placeholder="メールアドレス"
+                label="メールアドレス"
+                error={!!errors.email && touched.email}
+                helperText={touched.email && errors.email}
+                onChange={handleChange}
+              />
+              <Input
+                name="password"
+                type="password"
+                fullWidth
+                id="password-input"
+                placeholder="パスワード"
+                label="パスワード"
+                error={!!errors.password && touched.password}
+                helperText={touched.password && errors.password}
+                onChange={handleChange}
+              />
             <Link
               className="font-medium text-[#3D59C3] hover:underline"
               to="/register"
             >
               新しいアカウント作成
             </Link>
+            </div>
             <Button
               disabled={isSubmitting}
               type="submit"
