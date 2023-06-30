@@ -17,7 +17,7 @@ export type Staff = {
   address: string;
   company_exp: number;
   total_exp: number;
-  skill?: string[];
+  skill: string[] | string;
 };
 
 export type GenderType = "Male" | "Female" | "Other";
@@ -48,3 +48,11 @@ export type ReviewType = {
   updatedAt: string;
   createdAt: string;
 };
+export type User = {
+  _id: string;
+  fullname: string;
+  email: string;
+  phone_number: string;
+  avatar?: string;
+  date_of_birth: string;
+}

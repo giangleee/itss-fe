@@ -1,25 +1,30 @@
-import { FC, ReactNode } from 'react';
-import Header from '../../components/Header/Header';
-import Slider from '../../components/Slider';
+import Header from "../../components/Header/Header";
+import { Outlet } from "react-router";
+import { loginSuccess, logout, useDispatch, useSelector } from "../../states";
+import { useEffect } from "react";
+import { getMe } from "../../api/request";
+const MainCardWrapper = () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
 
-interface WrapperProps {
-    children?: ReactNode;
-}
-
-const MainCardWrapper: FC<WrapperProps> = ({ children }) => {
-    return (
-        <div className="container">
-            <Header />
-            <div className="pt-5 row">
-                <div className='col-3 px-3'>
-                <Slider />
-                </div>
-                <div className='col-9 px-3 h-[600px]'>
-                {children}
-                </div>
-            </div>
-        </div>
-    );
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await getMe();
+        dispatch(loginSuccess(user));
+      } catch (error) {
+        dispatch(logout());
+      }
+    };
+    fetchUser();
+  }, [dispatch]);
+  if (isLoading) return null;
+  return (
+    <div className="container">
+      <Header />
+      <Outlet />
+    </div>
+  );
 };
 
 export default MainCardWrapper;

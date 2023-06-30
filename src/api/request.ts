@@ -1,5 +1,19 @@
-import type { RatingType, Staff, ReviewType } from "../types";
+import type { RatingType, Staff, User } from "../types";
 import instance from "./instance";
+/**
+ * tra ve token
+ */
+export const login = async (email: string, password: string) => {
+  const url = "/auth/login";
+  const data = await instance.post(url, { email, password });
+  return data.data as string;
+};
+export const getMe = async () => {
+  const url = "/me";
+  const res = await instance.get(url);
+  const data = res.data;
+  return data.data as User;
+};
 
 export const getListApplyStaff = (_requestId: string) => {
   const url = `/request/list-apply-staff/${_requestId}`;
@@ -77,6 +91,12 @@ export const getStaffReviews = async (staff_id: string) => {
   return reviewsSample;
   // return res.data.data as ReviewType[];
 };
+
+export const createRequest = async(payload: object) => {
+  const url = '/request'
+
+  return instance.post(url, payload)
+}
 const reviewsSample = [
   {
     _id: "1",
