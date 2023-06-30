@@ -1,7 +1,10 @@
 import Slider from "../../components/Slider";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
+import { useSelector } from "../../states";
 
 const AuthRequiredLayout = () => {
+  const { isLogin } = useSelector((state) => state.auth);
+  if (!isLogin) return <Navigate to={"/login"} />;
   return (
     <div className="pt-5 row">
       <div className="col-3 px-3">
