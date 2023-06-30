@@ -3,7 +3,7 @@ import FirstForm, { RegisterOnSubmitType } from "./FirstForm";
 import SecondForm from "./SecondForm";
 
 const Register = () => {
-  const [visiableForm, setVisiableForm] = useState<"first" | "second">("second");
+  const [visiableForm, setVisiableForm] = useState<"first" | "second">("first");
   const handleFirstFormSubmit: RegisterOnSubmitType = async (values, onError) => {
     // onError({ email: "Email already exists" });
     // console.log(values);
