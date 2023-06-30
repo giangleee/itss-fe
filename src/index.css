@@ -6,3 +6,7 @@
 * {
   font-family: 'Noto Sans JP', sans-serif;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
