@@ -1,33 +1,68 @@
 import { FC } from "react";
 import { Formik, Form, FormikErrors } from "formik";
-import { Button, Card, Typography } from "@mui/material";
+import { Button, Card, FormControlLabel, FormHelperText, Radio, RadioGroup, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import Input from "../Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
-
+import { faArrowUpFromBracket, faCircleArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { commonValidate } from "../validate";
+export type InfoValueType = {
+  name: string;
+  province: string;
+  district: string;
+  address: string;
+  phone: string;
+  birthday: string;
+  cccd: string;
+  avatar: string;
+  gender: "Male" | "Female" | "Other";
+};
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SecondFormProps {
   onRequestBack?: () => void;
 }
-const SecondForm: FC<SecondFormProps> = ({onRequestBack}) => {
+const SecondForm: FC<SecondFormProps> = ({ onRequestBack }) => {
   return (
     <Formik
-      initialValues={{
-        name: "",
-        province: "",
-        district: "",
-        address: "",
-        phone: "",
-        birthday: "",
-        cccd: "",
-        avatar: "",
-        gender: "",
+      initialValues={
+        {
+          name: "",
+          province: "",
+          district: "",
+          address: "",
+          phone: "",
+          birthday: "",
+          cccd: "",
+          avatar: "",
+          gender: "Other",
+        } as InfoValueType
+      }
+      validate={async (values) => {
+        const errors: FormikErrors<InfoValueType> = {};
+        const nameError = commonValidate(values.name, "氏名");
+        const provinceError = commonValidate(values.province, "市");
+        const districtError = commonValidate(values.district, "区");
+        const addressError = commonValidate(values.address, "住所");
+        const phoneError = commonValidate(values.phone, "電話番号");
+        const birthdayError = commonValidate(values.birthday, "誕生日");
+        const cccdError = commonValidate(values.cccd, "証明番号");
+        if (nameError) errors.name = nameError;
+        if (provinceError) errors.province = provinceError;
+        if (districtError) errors.district = districtError;
+        if (addressError) errors.address = addressError;
+        if (phoneError) errors.phone = phoneError;
+        if (birthdayError) errors.birthday = birthdayError;
+        if (cccdError) errors.cccd = cccdError;
+        return errors;
       }}
       onSubmit={async (values) => {
-        console.log(values);
+        console.table(values);
       }}
     >
-      {({ errors, touched, handleChange, isSubmitting }) => (
+      {({ errors, touched, handleChange, isSubmitting, setFieldValue, values: { avatar } }) => (
         <Card className="w-full h-full bg-[#ffffff6c] backdrop-blur-xl px-5 py-6">
           <FontAwesomeIcon
             size="2xl"
@@ -112,6 +147,75 @@ const SecondForm: FC<SecondFormProps> = ({onRequestBack}) => {
                 helperText={touched.cccd && errors.cccd}
                 onChange={handleChange}
               />
+              <div className="flex">
+                <div className="w-3/5 flex flex-col gap-2">
+                  <label className="font-bold">性別*</label>
+                  <RadioGroup
+                    name="gender"
+                    className="flex flex-row"
+                    onChange={handleChange}
+                    defaultValue="Other"
+                  >
+                    <FormControlLabel
+                      value="Female"
+                      control={<Radio />}
+                      label="女性"
+                    />
+                    <FormControlLabel
+                      value="Male"
+                      control={<Radio />}
+                      label="男性"
+                    />
+                    <FormControlLabel
+                      value="Other"
+                      control={<Radio />}
+                      label="その他"
+                    />
+                  </RadioGroup>
+                </div>
+                <div className="w-2/5 flex flex-col gap-2">
+                  <label className="font-bold">アバター画像*</label>
+                  <Button
+                    variant="outlined"
+                    size="medium"
+                    className="w-full py-[15px] px-[14px] border-2"
+                    startIcon={<FontAwesomeIcon icon={avatar ? faCircleCheck : faArrowUpFromBracket} />}
+                  >
+                    アップロード
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (e) => {
+                            setFieldValue("avatar", e.target?.result);
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </Button>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-bold">誕生日*</label>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    onChange={(v: Dayjs | null) => {
+                      setFieldValue("birthday", v?.toISOString());
+                    }}
+                    slotProps={{
+                      textField: {
+                        helperText: touched.birthday && errors.birthday,
+                        error: !!errors.birthday && touched.birthday,
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
+              </div>
             </div>
             <Button
               type="submit"

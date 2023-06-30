@@ -11,7 +11,7 @@ const Input: FC<TextFieldProps> = (props) => {
       >
         {label}
       </label>
-      <TextField {...rest} />
+      <TextField {...rest} lang="en"/>
     </div>
   );
 };
