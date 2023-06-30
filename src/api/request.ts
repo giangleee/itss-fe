@@ -6,6 +6,26 @@ export const getListApplyStaff = (_requestId: string) => {
   return instance.get(url);
 };
 
+export const acceptStaff = (_staffId: string, _requestId: string) => {
+  const url = `/request/${_requestId}/accept/${_staffId}`;
+  return instance.post(url);
+};
+
+export const deleteStaffFormRequestList = (payload: any, _requestId: string) => {
+  // eslint-disable-next-line no-debugger
+  debugger
+  const url = `/request/list-apply-staff/${_requestId}`;
+  return instance({
+    method: 'patch',
+    maxBodyLength: Infinity,
+    url:url,
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : payload
+  })
+};
+
 export const getStaffById = (_id: string) => {
   const url = `/staff?_id=${_id}`;
   return instance.get(url);

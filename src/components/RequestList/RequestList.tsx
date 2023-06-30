@@ -3,11 +3,14 @@
 import { Avatar, Button, List, ListItem, Pagination, Rating } from "@mui/material";
 import "./style.scss";
 import { useEffect, useState } from "react";
-import { getListApplyStaff } from "../../api/request";
+import { acceptStaff, deleteStaffFormRequestList, getListApplyStaff } from "../../api/request";
 import { ceil } from "lodash";
 import { useParams } from "react-router-dom";
 import Filter from "../Filter";
 import { FilterType } from "../../types";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RequestList = () => {
   // const [age, setAge] = useState<number | null>(null);
@@ -98,6 +101,35 @@ const RequestList = () => {
     };
     handleFilter(filter);
   }, [data, filter]);
+
+  async function accept(staffId: string) {
+    if (request_id) {
+      try {
+        const { data } = await acceptStaff(staffId, request_id);
+        if (data?.message == "Remove staff from request list staff successfully") {
+          // console.log("thành công");
+          toast.success("成功した!");
+        }
+      } catch (error) {
+        toast.error("エラー!");
+      }
+    }
+  }
+
+  async function deleteStaff(staffId: string) {
+    if (request_id) {
+      try {
+        const { data } = await deleteStaffFormRequestList( JSON.stringify({staffs: [staffId]}),request_id);
+        if (data?.message == "Remove staff from request list staff successfully") {
+          // console.log("thành công");
+          toast.success("成功した!");
+        }
+      } catch (error) {
+        toast.error("エラー!");
+      }
+    }
+  }
+
   return (
     <div className="container-fluid">
       <div className="request__container">
@@ -159,6 +191,7 @@ const RequestList = () => {
                                   className="px-3"
                                   size="small"
                                   variant="outlined"
+                                  onClick={() => deleteStaff(item._id)}
                                   style={{
                                     borderColor: "#FF7008",
                                   }}
@@ -169,6 +202,7 @@ const RequestList = () => {
                                   className="me-2 ms-2 px-3"
                                   size="small"
                                   variant="contained"
+                                  onClick={() => accept(item._id)}
                                   style={{
                                     backgroundColor: "#FF7008",
                                   }}
@@ -189,6 +223,7 @@ const RequestList = () => {
 
         <div className="d-flex justify-content-center">
           <Pagination
+            page={currentPage + 1}
             count={ceil(displayData.length / 3)}
             variant="outlined"
             shape="rounded"
@@ -199,6 +234,7 @@ const RequestList = () => {
           />
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

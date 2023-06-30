@@ -19,7 +19,6 @@ const RequestList = () => {
   const [payload, setPayload] = React.useState<RatingType>({});
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     console.log(request_id);
   }, []);
@@ -184,8 +183,8 @@ const RequestList = () => {
               }}
               className="px-3"
               size="large"
-          onClick={() => navigate(-1)}
-          variant="outlined"
+              onClick={() => navigate(-1)}
+              variant="outlined"
               style={{
                 borderColor: "#FF7008",
               }}
