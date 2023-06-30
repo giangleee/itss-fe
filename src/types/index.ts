@@ -48,3 +48,11 @@ export type ReviewType = {
   updatedAt: string;
   createdAt: string;
 };
+export type User = {
+  _id: string;
+  fullname: string;
+  email: string;
+  phone_number: string;
+  avatar?: string;
+  date_of_birth: string;
+}

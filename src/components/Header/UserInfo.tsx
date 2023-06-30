@@ -1,5 +1,18 @@
-const UserInfo = () => {
-    return <>asdsda</>
-}
+import { Button } from "@mui/material";
+import { logout, useDispatch } from "../../states";
 
-export default UserInfo
+const UserInfo = () => {
+  const dispatch = useDispatch();
+  return (
+    <Button
+      variant="outlined"
+      onClick={() => {
+        dispatch(logout());
+      }}
+    >
+      Logout
+    </Button>
+  );
+};
+
+export default UserInfo;
