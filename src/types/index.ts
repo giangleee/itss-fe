@@ -50,9 +50,15 @@ export type ReviewType = {
 };
 export type User = {
   _id: string;
-  fullname: string;
+  fullName: string;
   email: string;
-  phone_number: string;
+  phoneNumber: string;
   avatar?: string;
-  date_of_birth: string;
-}
+  gender: "Male" | "Female" | "Other";
+  lang_id: string;
+  dateOfBirth: string;
+  cccd: string;
+  address: string;
+  province: string;
+  district: string;
+};

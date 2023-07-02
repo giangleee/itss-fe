@@ -73,6 +73,8 @@ $active-color: #b8ba4ba6;
         .footer-content {
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 10px;
             cursor: pointer;
         }
     }
