@@ -1,14 +1,14 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: "https://itss-be-production.up.railway.app/api/v1",
 });
 
 const onRequest = (config: InternalAxiosRequestConfig) => {
   config.headers.set("Content-Type", "application/json");
   const token = localStorage.getItem("token");
   const BearerToken = token ? "Bearer " + token : undefined;
-  config.headers.Authorization = BearerToken
+  config.headers.Authorization = BearerToken;
   return config;
 };
 const onResponse = (response: AxiosResponse) => {
