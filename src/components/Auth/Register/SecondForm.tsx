@@ -14,7 +14,7 @@ export type InfoValueType = {
   province: string;
   district: string;
   address: string;
-  phone: string;
+  phoneNumber: string;
   dateOfBirth: string;
   cccd: string;
   avatar?: string;
@@ -34,7 +34,7 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
           province: "",
           district: "",
           address: "",
-          phone: "",
+          phoneNumber: "",
           dateOfBirth: "",
           cccd: "",
           gender: "Other",
@@ -46,14 +46,14 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
         const provinceError = commonValidate(values.province, "市");
         const districtError = commonValidate(values.district, "区");
         const addressError = commonValidate(values.address, "住所");
-        const phoneError = commonValidate(values.phone, "電話番号");
+        const phoneError = commonValidate(values.phoneNumber, "電話番号");
         const birthdayError = commonValidate(values.dateOfBirth, "誕生日");
         const cccdError = commonValidate(values.cccd, "証明番号");
         if (nameError) errors.fullName = nameError;
         if (provinceError) errors.province = provinceError;
         if (districtError) errors.district = districtError;
         if (addressError) errors.address = addressError;
-        if (phoneError) errors.phone = phoneError;
+        if (phoneError) errors.phoneNumber = phoneError;
         if (birthdayError) errors.dateOfBirth = birthdayError;
         if (cccdError) errors.cccd = cccdError;
         return errors;
@@ -102,14 +102,14 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
                 onChange={handleChange}
               />
               <Input
-                name="phone"
+                name="phoneNumber"
                 type="phone"
                 fullWidth
                 id="phone-input"
                 placeholder="電話番号"
                 label="電話番号*"
-                error={!!errors.phone && touched.phone}
-                helperText={touched.phone && errors.phone}
+                error={!!errors.phoneNumber && touched.phoneNumber}
+                helperText={touched.phoneNumber && errors.phoneNumber}
                 onChange={handleChange}
               />
               <Input
@@ -203,7 +203,7 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     onChange={(v: Dayjs | null) => {
-                      setFieldValue("birthday", v?.toISOString());
+                      setFieldValue("dateOfBirth", v?.toISOString());
                     }}
                     slotProps={{
                       textField: {

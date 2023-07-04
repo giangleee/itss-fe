@@ -1,13 +1,13 @@
 import "./style.scss";
 import { Card, TextField, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "../../states";
+import { useSelector } from "../../states";
 import React, { useEffect } from "react";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const [mode, setMode] = React.useState<string>("update");
   const [fullName, setFullName] = React.useState<string>("");
-  const [date_of_birth, setBirth] = React.useState<string>("");
+  const [dateOfBirth, setBirth] = React.useState<string>("");
   const [cccd, setCccd] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [gender, setGender] = React.useState<string>("");
@@ -17,7 +17,7 @@ const Profile = () => {
   const [phoneNumber, setPhoneNumber] = React.useState<string>("");
   useEffect(() => {
     setFullName(user?.fullName ?? "");
-    setBirth(user?.date_of_birth ?? "");
+    setBirth(user?.dateOfBirth ?? "");
     setCccd(user?.cccd ?? "");
     setEmail(user?.email ?? "");
     setGender(user?.gender ?? "");
@@ -28,7 +28,7 @@ const Profile = () => {
   }, [
     user?.address,
     user?.cccd,
-    user?.date_of_birth,
+    user?.dateOfBirth,
     user?.district,
     user?.email,
     user?.fullName,
@@ -37,7 +37,7 @@ const Profile = () => {
     user?.province,
   ]);
   console.log(user);
-  
+
   function checkValidate(value: string): boolean {
     if (value?.length == 0 || value?.length >= 255) return false;
     return true;
@@ -89,14 +89,14 @@ const Profile = () => {
               readOnly: mode === "view",
             }}
             fullWidth
-            error={checkValidate(date_of_birth)}
+            error={checkValidate(dateOfBirth)}
             id="outlined-multiline-static"
             multiline
             rows={1}
-            defaultValue={user.date_of_birth}
-            value={date_of_birth}
+            defaultValue={user.dateOfBirth}
+            value={dateOfBirth}
             onBlur={(event) => {
-              setBirth(event.target.value ?? user.date_of_birth);
+              setBirth(event.target.value ?? user.dateOfBirth);
             }}
           />
         </div>
