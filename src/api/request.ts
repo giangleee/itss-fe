@@ -106,6 +106,12 @@ export const createRequest = async (payload: object) => {
 
   return instance.post(url, payload);
 };
+
+export const updateUserInfo = async(_id:string, payload: object) => {
+  const url = `/auth/${_id}`
+
+  return instance.patch(url, payload)
+}
 // const reviewsSample = [
 //   {
 //     _id: "1",
