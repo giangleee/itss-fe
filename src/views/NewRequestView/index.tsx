@@ -6,6 +6,7 @@ import { validateRule } from "./ValidateRule";
 import { JOB_TYPE } from "./JobTypeConst";
 import { createRequest } from "../../api/request";
 import NotificationComponent, { NotificationComponentRef } from "../../components/Notification";
+import { useSelector } from "../../states";
 interface TimeDetailInterface {
   hour: number;
   minute: number;
@@ -27,6 +28,7 @@ interface createRequestInterface {
 
 interface PayloadInterface {
   job_type: number;
+  user_id: string;
   request_detail: {
     work_time: string;
     salary: number;
@@ -41,6 +43,8 @@ const NewRequestView: FC = () => {
   const [amOrPm] = useState<string[]>(["午前", "午後"]);
 
   const notiRef = useRef<NotificationComponentRef>(null);
+  const { user } = useSelector((state) => state.auth);
+  if (!user) return null;
 
   const initValues = (): createRequestInterface => {
     return {
@@ -64,13 +68,14 @@ const NewRequestView: FC = () => {
   };
 
   const handleSave = async (value: createRequestInterface) => {
-    console.log(value);
+    console.log(user);
 
     const { from, to }: TimeInterface = value.time;
     const customWorkTime = `${from.hour}:${from.minute} ${from.meridiem} ~ ${to.hour}:${to.minute} ${to.meridiem}`;
 
     const payload: PayloadInterface = {
       job_type: value.requestJobType,
+      user_id: user?._id,
       request_detail: {
         work_time: customWorkTime,
         salary: value.salary,
