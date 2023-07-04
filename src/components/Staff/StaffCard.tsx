@@ -1,10 +1,11 @@
 import { Button, Paper, Skeleton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import avatar from "../../assets/img/avatar.png";
 import { PropsWithChildren } from "react";
 import { Staff } from "../../types";
 import Contact from "./Contact";
 const StaffCard = ({ staff }: { staff: Staff }) => {
+  const navigate = useNavigate();
   const age = staff.age ? staff.age : new Date().getFullYear() - new Date(staff.date_of_birth).getFullYear();
   return (
     <Paper
@@ -40,11 +41,12 @@ const StaffCard = ({ staff }: { staff: Staff }) => {
       </div>
       <Button
         variant="contained"
-        className="mb-3 self-center rounded-md"
+        className="mb-3 self-center rounded-md w-20"
         size="small"
         style={{ backgroundColor: "#FF7008", color: "#fff" }}
+        onClick={() => navigate(staff._id)}
       >
-        <Link to={staff._id}>詳細</Link>
+        詳細
       </Button>
     </Paper>
   );

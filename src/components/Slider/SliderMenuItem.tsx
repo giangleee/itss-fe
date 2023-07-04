@@ -11,6 +11,7 @@ const SliderMenuItem: FC<SliderMenuItem> = ({ text, sliderIcon, router }) => {
   return (
     <NavLink
       className="menu-item__container"
+      title={text}
       to={router}
     >
       <div className="menu-item__icon">{sliderIcon}</div>

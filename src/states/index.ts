@@ -11,3 +11,4 @@ export const useSelector: TypedUseSelectorHook<RootState> = defaultUseSelectorHo
 export { default as store } from "./store";
 export * from "./store";
 export * from "./slices/auth";
+export * from "./slices/profile";

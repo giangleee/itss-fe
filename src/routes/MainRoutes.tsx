@@ -2,9 +2,6 @@
 import { lazy } from "react";
 import { Link, Navigate, Outlet, createBrowserRouter } from "react-router-dom";
 import Loadable from "../components/Loadable";
-import MainLayout from "../layouts/wrappers/MainCardWrapper";
-import AuthRequiredLayout from "../layouts/AuthRequiredLayout";
-import AuthLayout from "../layouts/AuthLayout";
 // AuthRequiredLayout
 const NewRequestView = Loadable(lazy(() => import("../views/NewRequestView")));
 const RequestList = Loadable(lazy(() => import("../views/RequestListView")));
@@ -13,7 +10,11 @@ const RequestInfo = Loadable(lazy(() => import("../views/RequestInfo/RequestInfo
 const Review = Loadable(lazy(() => import("../views/Review")));
 const RequestHistory = Loadable(lazy(() => import("../views/RequestHistory")));
 const StaffLayout = Loadable(lazy(() => import("../components/Staff")));
+const Profile = Loadable(lazy(() => import("../components/Profile")));
 // AuthLayout
+const MainLayout = Loadable(lazy(() => import("../layouts/wrappers/MainCardWrapper")));
+const AuthRequiredLayout = Loadable(lazy(() => import("../layouts/AuthRequiredLayout")));
+const AuthLayout = Loadable(lazy(() => import("../layouts/AuthLayout")));
 const Login = Loadable(lazy(() => import("../components/Auth/Login")));
 const Register = Loadable(lazy(() => import("../components/Auth/Register")));
 const appRouter = createBrowserRouter([
@@ -27,7 +28,7 @@ const appRouter = createBrowserRouter([
         children: [
           { path: "", element: <Navigate to="/staff" /> },
           { path: "staff/*", element: <StaffLayout /> },
-          { path: "profile", element: <h1>Profile</h1> },
+          { path: "profile", element: <Profile /> },
           { path: "new", element: <NewRequestView /> },
           {
             path: "pending",

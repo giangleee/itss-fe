@@ -7,12 +7,13 @@ const instance = axios.create({
 const onRequest = (config: InternalAxiosRequestConfig) => {
   config.headers.set("Content-Type", "application/json");
   const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? "Bearer " + localStorage.getItem("token") : undefined;
+  const BearerToken = token ? "Bearer " + token : undefined;
+  config.headers.Authorization = BearerToken;
   return config;
 };
 const onResponse = (response: AxiosResponse) => {
   if (response.config.url !== "/auth/login") return response;
-  const token = response.data.data;
+  const token = response.data.data.token;
   if (token) {
     localStorage.setItem("token", token);
   }
