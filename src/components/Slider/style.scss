@@ -50,6 +50,9 @@ $active-color: #b8ba4ba6;
         padding-top: 15px;
 
         .menu-item__container {
+            &:first-child {
+                border-top: 1px solid;
+            }
             // cursor: pointer;
             display: flex;
             align-items: center;
@@ -57,7 +60,7 @@ $active-color: #b8ba4ba6;
             padding: 15px 30px;
             border-bottom: 1px solid;
             text-decoration: none;
-            color: #2e1f27; 
+            color: #2e1f27;
             gap: 7px;
         }
     }
