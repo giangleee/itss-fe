@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "../../states";
 import React, { useEffect } from "react";
 
 const Profile = () => {
-  // eslint-disable-next-line no-debugger
+  const { user } = useSelector((state) => state.auth);
   const [mode, setMode] = React.useState<string>("update");
   const [fullName, setFullName] = React.useState<string>("");
   const [date_of_birth, setBirth] = React.useState<string>("");
@@ -15,25 +15,29 @@ const Profile = () => {
   const [province, setProvince] = React.useState<string>("");
   const [district, setDistrict] = React.useState<string>("");
   const [phoneNumber, setPhoneNumber] = React.useState<string>("");
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  let payload: any;
-
-    setFullName(user?.fullName ?? '');
-    setBirth(user?.date_of_birth ?? '');
-    setCccd(user?.cccd ?? '');
-    setEmail(user?.email ?? '');
-    setGender(user?.gender ?? '');
-    setAddress(user?.address ?? '');
-    setProvince(user?.province ?? '');
-    setDistrict(user?.district ?? '');
-    setPhoneNumber(user?.phoneNumber ?? '');
+  useEffect(() => {
+    setFullName(user?.fullName ?? "");
+    setBirth(user?.date_of_birth ?? "");
+    setCccd(user?.cccd ?? "");
+    setEmail(user?.email ?? "");
+    setGender(user?.gender ?? "");
+    setAddress(user?.address ?? "");
+    setProvince(user?.province ?? "");
+    setDistrict(user?.district ?? "");
+    setPhoneNumber(user?.phoneNumber ?? "");
+  }, [
+    user?.address,
+    user?.cccd,
+    user?.date_of_birth,
+    user?.district,
+    user?.email,
+    user?.fullName,
+    user?.gender,
+    user?.phoneNumber,
+    user?.province,
+  ]);
+  console.log(user);
   
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-  };
-
   function checkValidate(value: string): boolean {
     if (value?.length == 0 || value?.length >= 255) return false;
     return true;
@@ -66,7 +70,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.fullName}
             value={fullName}
-            onBlur={(event: any)=>{setFullName(event.target.value ?? user.fullName)}}
+            onBlur={(event) => {
+              setFullName(event.target.value ?? user.fullName);
+            }}
           />
         </div>
         <div className="col-6">
@@ -89,7 +95,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.date_of_birth}
             value={date_of_birth}
-            onBlur={(event: any)=>{setBirth(event.target.value ?? user.date_of_birth)}}
+            onBlur={(event) => {
+              setBirth(event.target.value ?? user.date_of_birth);
+            }}
           />
         </div>
       </div>
@@ -115,7 +123,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.cccd}
             value={cccd}
-            onBlur={(event: any)=>{setCccd(event.target.value ?? user.cccd)}}
+            onBlur={(event) => {
+              setCccd(event.target.value ?? user.cccd);
+            }}
           />
         </div>
         <div className="col-6">
@@ -138,7 +148,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.gender}
             value={gender}
-            onBlur={(event: any)=>{setGender(event.target.value ?? user.gender)}}
+            onBlur={(event) => {
+              setGender(event.target.value ?? user.gender);
+            }}
           />
         </div>
       </div>
@@ -188,7 +200,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.province}
             value={province}
-            onBlur={(event: any)=>{setProvince(event.target.value ?? user.province)}}
+            onBlur={(event) => {
+              setProvince(event.target.value ?? user.province);
+            }}
           />
         </div>
         <div className="col-6">
@@ -211,7 +225,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.district}
             value={district}
-            onBlur={(event: any)=>{setDistrict(event.target.value ?? user.district)}}
+            onBlur={(event) => {
+              setDistrict(event.target.value ?? user.district);
+            }}
           />
         </div>
       </div>
@@ -237,7 +253,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.address}
             value={address}
-            onBlur={(event: any)=>{setAddress(event.target.value ?? user.address)}}
+            onBlur={(event) => {
+              setAddress(event.target.value ?? user.address);
+            }}
           />
         </div>
         <div className="col-6">
@@ -260,7 +278,9 @@ const Profile = () => {
             rows={1}
             defaultValue={user.phoneNumber}
             value={phoneNumber}
-            onBlur={(event: any)=>{setPhoneNumber(event.target.value ?? user.phoneNumber)}}
+            onBlur={(event) => {
+              setPhoneNumber(event.target.value ?? user.phoneNumber);
+            }}
           />
         </div>
       </div>
