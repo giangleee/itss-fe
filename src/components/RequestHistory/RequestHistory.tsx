@@ -6,8 +6,8 @@ import { useEffect } from "react";
 import { getListOwnerHistoryRequest } from "../../api/request";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
 const columns: readonly any[] = [
   { id: "id", label: "Id", minWidth: "20%", align: "center" },
   { id: "name", label: "スタッフ", minWidth: "30%", align: "center" },
@@ -43,9 +43,52 @@ const RequestHistory = () => {
     getRequestHistory();
   }, []);
 
+  function getClass(status: number): string {
+    switch (status) {
+      case 1:
+        return "inActive";
+      case 2:
+        return "active";
+      case 3:
+        return "pending";
+      case 4:
+        return "ended";
+      default:
+        return "";
+        break;
+    }
+  }
+
+  function getText(status: number): string {
+    switch (status) {
+      case 1:
+        return "実行中";
+      case 2:
+        return "完了";
+      case 3:
+        return "探し中";
+      case 4:
+        return "期間切れ";
+      default:
+        return "";
+        break;
+    }
+  }
+
   return (
     <div>
-        <div className="bg-white row ms-2 w-25 title text-center align-self-center mb-4" > <span className="align-self-center"><b><FontAwesomeIcon className="pe-2" icon={faUser} />リクエスト履歴 </b></span></div>
+      <div className="bg-white row ms-2 w-25 title text-center align-self-center mb-4">
+        {" "}
+        <span className="align-self-center">
+          <b>
+            <FontAwesomeIcon
+              className="pe-2"
+              icon={faUser}
+            />
+            リクエスト履歴{" "}
+          </b>
+        </span>
+      </div>
       <Paper sx={{ width: "100%", overflow: "hidden", height: "100% !improtant", border: "4px solid" }}>
         <TableContainer sx={{ height: "100%" }}>
           <Table
@@ -72,7 +115,7 @@ const RequestHistory = () => {
                 const id = row.id;
                 return (
                   <TableRow
-                  className="mt-2"
+                    className="mt-2"
                     hover
                     tabIndex={-1}
                     key={i}
@@ -81,10 +124,9 @@ const RequestHistory = () => {
                   >
                     {columns.map((column) => {
                       let value = row[column.id];
-                      if (column.id === "status") value = row[column.id] === 1 ? "実行中" : "完了";
+                      if (column.id === "status") value = getText(row[column.id]);
 
-                      const statusClass =
-                        column.id === "status" ? (row[column.id] === 1 ? "inActive" : "active") : null;
+                      const statusClass = column.id === "status" ? getClass(row[column.id]) : null;
                       return (
                         <TableCell
                           key={column.id}
