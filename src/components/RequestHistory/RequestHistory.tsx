@@ -8,6 +8,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "../../states";
 const columns: readonly any[] = [
   { id: "id", label: "Id", minWidth: "20%", align: "center" },
   { id: "name", label: "スタッフ", minWidth: "30%", align: "center" },
@@ -20,12 +21,13 @@ const columns: readonly any[] = [
   },
 ];
 const RequestHistory = () => {
+  const { user } = useSelector((state) => state.auth);
   const [displayData, setDisplayData] = React.useState<any[]>([]);
   const [data, setData] = React.useState<any[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
     const getRequestHistory = async () => {
-      const response = await getListOwnerHistoryRequest("648f3b20908304001c871052");
+      const response = await getListOwnerHistoryRequest(user!._id);
       const { data: res } = response;
 
       setData(res?.data);
@@ -51,7 +53,7 @@ const RequestHistory = () => {
         return "active";
       case 3:
         return "pending";
-      case 4:
+      case 0:
         return "ended";
       default:
         return "";
@@ -67,7 +69,7 @@ const RequestHistory = () => {
         return "完了";
       case 3:
         return "探し中";
-      case 4:
+      case 0:
         return "期間切れ";
       default:
         return "";

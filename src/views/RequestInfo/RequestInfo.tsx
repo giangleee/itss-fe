@@ -11,7 +11,7 @@ const RequestInfo: FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getRequest = async () => {
-      const response = await getRequestById("648f3d808b680f001c1a1abd");
+      const response = await getRequestById(request_id!);
       const { data: res } = response;
       console.log(res?.data);
       setRequest(res?.data[0]);
