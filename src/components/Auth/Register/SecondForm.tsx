@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Formik, Form, FormikErrors } from "formik";
-import { Button, Card, FormControlLabel, FormHelperText, Radio, RadioGroup, Typography } from "@mui/material";
+import { Button, Card, FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -10,46 +10,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpFromBracket, faCircleArrowLeft, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { commonValidate } from "../validate";
 export type InfoValueType = {
-  name: string;
+  fullName: string;
   province: string;
   district: string;
   address: string;
   phone: string;
   birthday: string;
   cccd: string;
-  avatar: string;
+  avatar?: string;
   gender: "Male" | "Female" | "Other";
 };
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SecondFormProps {
   onRequestBack?: () => void;
+  onSubmit: (values: InfoValueType) => void | Promise<void>;
 }
-const SecondForm: FC<SecondFormProps> = ({ onRequestBack }) => {
+const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
   return (
     <Formik
       initialValues={
         {
-          name: "",
+          fullName: "",
           province: "",
           district: "",
           address: "",
           phone: "",
           birthday: "",
           cccd: "",
-          avatar: "",
           gender: "Other",
         } as InfoValueType
       }
       validate={async (values) => {
         const errors: FormikErrors<InfoValueType> = {};
-        const nameError = commonValidate(values.name, "氏名");
+        const nameError = commonValidate(values.fullName, "氏名");
         const provinceError = commonValidate(values.province, "市");
         const districtError = commonValidate(values.district, "区");
         const addressError = commonValidate(values.address, "住所");
         const phoneError = commonValidate(values.phone, "電話番号");
         const birthdayError = commonValidate(values.birthday, "誕生日");
         const cccdError = commonValidate(values.cccd, "証明番号");
-        if (nameError) errors.name = nameError;
+        if (nameError) errors.fullName = nameError;
         if (provinceError) errors.province = provinceError;
         if (districtError) errors.district = districtError;
         if (addressError) errors.address = addressError;
@@ -58,9 +58,7 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack }) => {
         if (cccdError) errors.cccd = cccdError;
         return errors;
       }}
-      onSubmit={async (values) => {
-        console.table(values);
-      }}
+      onSubmit={onSubmit}
     >
       {({ errors, touched, handleChange, isSubmitting, setFieldValue, values: { avatar } }) => (
         <Card className="w-full h-full bg-[#ffffff6c] backdrop-blur-xl px-5 py-6">
@@ -82,14 +80,14 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack }) => {
             </Typography>
             <div className="p-2 flex-1 w-full grid grid-cols-2 grid-rows-4 gap-x-5">
               <Input
-                name="name"
+                name="fullName"
                 type="text"
                 fullWidth
                 id="name-input"
                 placeholder="氏名"
                 label="氏名*"
-                error={!!errors.name && touched.name}
-                helperText={touched.name && errors.name}
+                error={!!errors.fullName && touched.fullName}
+                helperText={touched.fullName && errors.fullName}
                 onChange={handleChange}
               />
               <Input

@@ -38,11 +38,12 @@ export type RatingType = {
 
 export type ReviewType = {
   _id: string;
-  user: {
+  user_detail: {
     fullname: string;
     avatar: string;
     address: string;
-  };
+  }[];
+
   ratting: number;
   comment: string;
   updatedAt: string;
@@ -61,4 +62,18 @@ export type User = {
   address: string;
   province: string;
   district: string;
+};
+export type UserForm = {
+  fullName?: string;
+  email?: string;
+  phoneNumber?: string;
+  avatar?: string;
+  gender?: "Male" | "Female" | "Other";
+  lang_id?: string;
+  dateOfBirth?: string;
+  cccd?: string;
+  address?: string;
+  province?: string;
+  district?: string;
+  password?: string;
 };
