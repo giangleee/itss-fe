@@ -15,8 +15,6 @@ const RequestInfo: FC = () => {
       const { data: res } = response;
       console.log(res?.data);
       setRequest(res?.data[0]);
-      // eslint-disable-next-line no-debugger
-      debugger
       console.log(request?.request_detail?.salary)
     };
     getRequest();

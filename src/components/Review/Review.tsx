@@ -7,6 +7,7 @@ import { createReview, getStaffById } from "../../api/request";
 import { RatingType } from "../../types";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "../../states";
 
 const RequestList = () => {
   const { request_id, staff_id } = useParams();
@@ -15,10 +16,7 @@ const RequestList = () => {
   const [comment, setComment] = React.useState<string>("");
   const [validateComment, setValidateComment] = React.useState<boolean>(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(request_id, staff_id);
-  }, []);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const getorder = async () => {
@@ -30,6 +28,7 @@ const RequestList = () => {
     };
     getorder();
   }, []);
+  if (!user) return null;
 
   const calculate_age = (dob: any): number => {
     const birthDate = new Date(dob);
@@ -59,7 +58,7 @@ const RequestList = () => {
     }
     try {
       const payload = {
-        user_id: "648f3b20908304001c871052",
+        user_id: user?._id,
         staff_id: staff._id,
         request_id: request_id,
         data: {
