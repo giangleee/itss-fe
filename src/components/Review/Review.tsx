@@ -7,25 +7,20 @@ import { createReview, getStaffById } from "../../api/request";
 import { RatingType } from "../../types";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useSelector } from "../../states";
 
 const RequestList = () => {
-  const { request_id } = useParams();
+  const { request_id, staff_id } = useParams();
   const [staff, setStaff] = React.useState<any>();
   const [rating, setRating] = React.useState<number>(0);
   const [comment, setComment] = React.useState<string>("");
   const [validateComment, setValidateComment] = React.useState<boolean>(false);
-  const [payload, setPayload] = React.useState<RatingType>({});
   const navigate = useNavigate();
-
-  
-  useEffect(() => {
-    console.log(request_id);
-  }, []);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const getorder = async () => {
-      const response = await getStaffById("648f3c8811f85e001ce85840");
+      const response = await getStaffById(staff_id!);
       console.log(response);
       const { data: res } = response;
 
@@ -33,6 +28,7 @@ const RequestList = () => {
     };
     getorder();
   }, []);
+  if (!user) return null;
 
   const calculate_age = (dob: any): number => {
     const birthDate = new Date(dob);
@@ -56,16 +52,20 @@ const RequestList = () => {
   };
 
   const onSubmitRatting = async () => {
+    if(rating === 0){
+      toast.error("評価を選んでください");
+      return;
+    }
     try {
-      setPayload({
-        user_id: "648f3b20908304001c871052",
+      const payload = {
+        user_id: user?._id,
         staff_id: staff._id,
-        request_id: "648f3d808b680f001c1a1abd",
+        request_id: request_id,
         data: {
           ratting: rating,
           comment: comment,
         },
-      });
+      };
       const { data } = await createReview(payload);
       if (data?.message == "Create review successfully") {
         console.log("thành công");
@@ -183,8 +183,9 @@ const RequestList = () => {
               }}
               className="px-3"
               size="large"
-          onClick={() => navigate(-1)}
-          variant="outlined"
+              // onClick={() => navigate(`history/${request_id}`, {replace: true})}
+              onClick={() => navigate(-1)}
+              variant="outlined"
               style={{
                 borderColor: "#FF7008",
               }}

@@ -1,48 +1,270 @@
-import { Card, Typography } from "@mui/material";
-import {
-  useDispatch,
-  useSelector,
-  // updateAddress,
-  // updateAvatar,
-  // updateDistrict,
-  // updateEmail,
-  // updateFullName,
-  // updateGender,
-  // updatePhoneNumber,
-  // updateProvince,
-} from "../../states";
+import "./style.scss";
+import { Card, TextField, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "../../states";
+import React, { useEffect } from "react";
 
 const Profile = () => {
+  // eslint-disable-next-line no-debugger
+  const [mode, setMode] = React.useState<string>("update");
+  const [fullName, setFullName] = React.useState<string>("");
+  const [date_of_birth, setBirth] = React.useState<string>("");
+  const [cccd, setCccd] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [gender, setGender] = React.useState<string>("");
+  const [address, setAddress] = React.useState<string>("");
+  const [province, setProvince] = React.useState<string>("");
+  const [district, setDistrict] = React.useState<string>("");
+  const [phoneNumber, setPhoneNumber] = React.useState<string>("");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  let payload: any;
+
+    setFullName(user?.fullName ?? '');
+    setBirth(user?.date_of_birth ?? '');
+    setCccd(user?.cccd ?? '');
+    setEmail(user?.email ?? '');
+    setGender(user?.gender ?? '');
+    setAddress(user?.address ?? '');
+    setProvince(user?.province ?? '');
+    setDistrict(user?.district ?? '');
+    setPhoneNumber(user?.phoneNumber ?? '');
+  
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+  };
+
+  function checkValidate(value: string): boolean {
+    if (value?.length == 0 || value?.length >= 255) return false;
+    return true;
+  }
+
   // TODO: Sau khi chỉnh sửa profile xong thì nhớ dispatch action update thông tin user nhé(để những trang khác có thể lấy thông tin user mới nhất)
   if (!user) return null;
   return (
-    <Card className="w-full h-full flex flex-col">
-      <Typography
-        variant="h3"
-        fontWeight={700}
-        align="center"
-        m={3}
-      >
-        個人情報
-      </Typography>
-      <div className="flex-1 bg-red-200 overflow-x-hidden overflow-y-auto">
-        {/* test: bỏ đoạn code dưới nếu làm nhá */}
-        {Object.entries(user).map(([key, value]) => {
-          if (key === "id") return null;
-          return (
-            <div
-              key={key}
-              className="flex items-center justify-between border-b border-gray-300 py-2 px-4"
-            >
-              <Typography fontWeight={700}>{key}</Typography>
-              <Typography whiteSpace="nowrap">{value}</Typography>
-            </div>
-          );
-        })}
+    <div className="profile-container">
+      <h4>個人情報</h4>
+
+      <div className="row">
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>氏名</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            error={checkValidate(fullName)}
+            fullWidth
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.fullName}
+            value={fullName}
+            onBlur={(event: any)=>{setFullName(event.target.value ?? user.fullName)}}
+          />
+        </div>
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>誕生日</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(date_of_birth)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.date_of_birth}
+            value={date_of_birth}
+            onBlur={(event: any)=>{setBirth(event.target.value ?? user.date_of_birth)}}
+          />
+        </div>
       </div>
-    </Card>
+
+      <div className="row">
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>識別番号</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(cccd)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.cccd}
+            value={cccd}
+            onBlur={(event: any)=>{setCccd(event.target.value ?? user.cccd)}}
+          />
+        </div>
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>性別</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(gender)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.gender}
+            value={gender}
+            onBlur={(event: any)=>{setGender(event.target.value ?? user.gender)}}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-12">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>メール</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.email}
+            value={email}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>市</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(province)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.province}
+            value={province}
+            onBlur={(event: any)=>{setProvince(event.target.value ?? user.province)}}
+          />
+        </div>
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>区</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(district)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.district}
+            value={district}
+            onBlur={(event: any)=>{setDistrict(event.target.value ?? user.district)}}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>アドレス</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(address)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.address}
+            value={address}
+            onBlur={(event: any)=>{setAddress(event.target.value ?? user.address)}}
+          />
+        </div>
+        <div className="col-6">
+          <Typography
+            variant="subtitle1"
+            component="h5"
+            sx={{ padding: "5px" }}
+            className="typo-custom"
+          >
+            <b>電話番号</b>
+          </Typography>
+          <TextField
+            InputProps={{
+              readOnly: mode === "view",
+            }}
+            fullWidth
+            error={checkValidate(phoneNumber)}
+            id="outlined-multiline-static"
+            multiline
+            rows={1}
+            defaultValue={user.phoneNumber}
+            value={phoneNumber}
+            onBlur={(event: any)=>{setPhoneNumber(event.target.value ?? user.phoneNumber)}}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

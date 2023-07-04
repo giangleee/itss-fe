@@ -48,7 +48,7 @@ const appRouter = createBrowserRouter([
                 element: <Outlet />,
                 children: [
                   { path: "", element: <RequestInfo /> },
-                  { path: "review", element: <Review /> },
+                  { path: "review/:staff_id", element: <Review /> },
                 ],
               },
             ],

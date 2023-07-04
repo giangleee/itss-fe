@@ -15,13 +15,14 @@ const RequestInfo: FC = () => {
       const { data: res } = response;
       console.log(res?.data);
       setRequest(res?.data[0]);
+      console.log(request?.request_detail?.salary)
     };
     getRequest();
   }, []);
   return (
     <div className="new-request__container">
       <h4>リクエスト詳細</h4>
-      <div className="detail-container">
+      <div>
         <FormControl
           fullWidth
           className="flex flex-row justify-between form-control__name"
@@ -69,12 +70,12 @@ const RequestInfo: FC = () => {
               id="outlined-multiline-static"
               multiline
               rows={1}
-              defaultValue={request?.request_detail?.status == 1 ? '実行中' : '完了'}
+              defaultValue={request?.request_detail?.status == 1 ? "実行中" : "完了"}
             />
           </Grid>
         </FormControl>
       </div>
-      <div className="detail-container">
+      <div>
         <FormControl fullWidth>
           <Grid item>
             <Typography
@@ -99,7 +100,7 @@ const RequestInfo: FC = () => {
         </FormControl>
       </div>
       {/* <SelectTimeComponent /> */}
-      <div className="detail-container pt-2">
+      <div className=" pt-2">
         <FormControl
           fullWidth
           className="flex flex-row justify-between form-control__name"
@@ -137,7 +138,7 @@ const RequestInfo: FC = () => {
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue={request?.request_detail?.work_time.split('-')[0]}
+                  defaultValue={request?.request_detail?.work_time.split("-")[0]}
                   className="w-8/12"
                 />
               </Grid>
@@ -161,7 +162,7 @@ const RequestInfo: FC = () => {
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue={request?.request_detail?.work_time.split('-')[1]}
+                  defaultValue={request?.request_detail?.work_time.split("-")[1]}
                   className="w-8/12"
                 />
               </Grid>
@@ -192,7 +193,7 @@ const RequestInfo: FC = () => {
           </Grid>
         </FormControl>
       </div>
-      <div className="detail-container">
+      <div>
         <FormControl fullWidth>
           <Grid item>
             <Typography
@@ -201,7 +202,7 @@ const RequestInfo: FC = () => {
               sx={{ padding: "5px" }}
               className="typo-custom"
             >
-             <b>その他の注意事項</b> 
+              <b>その他の注意事項</b>
             </Typography>
             <TextField
               InputProps={{
@@ -219,7 +220,7 @@ const RequestInfo: FC = () => {
         <Button
           variant="contained"
           className="button"
-          onClick={() => navigate("review")}
+          onClick={() => navigate(`review/${request?.request_detail?.staff_detail?._id}`)}
         >
           レビュー
         </Button>

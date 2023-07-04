@@ -57,7 +57,7 @@ export type User = {
   avatar?: string;
   gender: "Male" | "Female" | "Other";
   lang_id: string;
-  dateOfBirth: string;
+  date_of_birth: string;
   cccd: string;
   address: string;
   province: string;
