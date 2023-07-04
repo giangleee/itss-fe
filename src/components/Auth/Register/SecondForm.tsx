@@ -15,7 +15,7 @@ export type InfoValueType = {
   district: string;
   address: string;
   phone: string;
-  birthday: string;
+  dateOfBirth: string;
   cccd: string;
   avatar?: string;
   gender: "Male" | "Female" | "Other";
@@ -35,7 +35,7 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
           district: "",
           address: "",
           phone: "",
-          birthday: "",
+          dateOfBirth: "",
           cccd: "",
           gender: "Other",
         } as InfoValueType
@@ -47,14 +47,14 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
         const districtError = commonValidate(values.district, "区");
         const addressError = commonValidate(values.address, "住所");
         const phoneError = commonValidate(values.phone, "電話番号");
-        const birthdayError = commonValidate(values.birthday, "誕生日");
+        const birthdayError = commonValidate(values.dateOfBirth, "誕生日");
         const cccdError = commonValidate(values.cccd, "証明番号");
         if (nameError) errors.fullName = nameError;
         if (provinceError) errors.province = provinceError;
         if (districtError) errors.district = districtError;
         if (addressError) errors.address = addressError;
         if (phoneError) errors.phone = phoneError;
-        if (birthdayError) errors.birthday = birthdayError;
+        if (birthdayError) errors.dateOfBirth = birthdayError;
         if (cccdError) errors.cccd = cccdError;
         return errors;
       }}
@@ -207,8 +207,8 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
                     }}
                     slotProps={{
                       textField: {
-                        helperText: touched.birthday && errors.birthday,
-                        error: !!errors.birthday && touched.birthday,
+                        helperText: touched.dateOfBirth && errors.dateOfBirth,
+                        error: !!errors.dateOfBirth && touched.dateOfBirth,
                       },
                     }}
                   />
