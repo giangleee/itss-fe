@@ -9,7 +9,7 @@ export const login = async (email: string, password: string) => {
   return data.data as string;
 };
 export const getMe = async () => {
-  const url = "/me";
+  const url = "/auth";
   const res = await instance.get(url);
   const data = res.data;
   return data.data as User;
