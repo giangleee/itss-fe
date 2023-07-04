@@ -1,12 +1,20 @@
 .active {
-    background-color: rgba(251, 163, 0, 1);
+  background-color: rgba(251, 163, 0, 1);
 }
 
 .inActive {
-    background-color: rgba(117, 236, 122, 1);
+  background-color: rgba(117, 236, 122, 1);
 }
 
-.title{
-    height: 60px;
-    color: rgba(22, 87, 255, 1);
+.pending {
+  background-color: rgb(241, 241, 37);
+}
+
+.ended {
+  background-color: red;
+}
+
+.title {
+  height: 60px;
+  color: rgba(22, 87, 255, 1);
 }
