@@ -5,6 +5,7 @@ import { loginSuccess, useDispatch, useSelector } from "../../states";
 import React, { useEffect } from "react";
 import { updateUserInfo } from "../../api/request";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { toast } from "react-toastify";
 import { faCircleCheck, faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
@@ -24,6 +25,7 @@ const Profile = () => {
   const [district, setDistrict] = React.useState<string>("");
   const [phoneNumber, setPhoneNumber] = React.useState<string>("");
   const [avatar, setAvatar] = React.useState<string>("");
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   let payload: any;
@@ -40,6 +42,7 @@ const Profile = () => {
     setProvince(user?.city ?? "Ha Noi");
     setDistrict(user?.district ?? "");
     setPhoneNumber(user?.phoneNumber ?? "1234567890");
+    setValue(dayjs(user?.dateOfBirth ?? ""));
   }, []);
   const handleSubmit = async (event: any) => {
     payload = {
@@ -59,7 +62,7 @@ const Profile = () => {
         toast.success("成功した!");
         dispatch(loginSuccess(data.data));
       }
-    } catch (error){
+    } catch (error) {
       toast.error("エラー!");
     }
   };
@@ -107,7 +110,7 @@ const Profile = () => {
                   rows={1}
                   size="small"
                   value={fullName}
-                  helperText={ mode==='update' && checkValidate(fullName) ? validationText : ""}
+                  helperText={mode === "update" && checkValidate(fullName) ? validationText : ""}
                   onChange={(event: any) => {
                     setFullName(event.target.value ?? user.fullName);
                   }}
@@ -128,14 +131,16 @@ const Profile = () => {
                     readOnly={mode === "view"}
                     slotProps={{
                       textField: {
-                        helperText:  mode==='update' && checkValidate(date_of_birth) ? "DD/MM/YYYY" : "",
+                        helperText: mode === "update" && checkValidate(date_of_birth) ? "DD/MM/YYYY" : "",
                         size: "small",
                       },
                     }}
                     format="YYYY/MM/DD"
-                    value={new Date(date_of_birth)}
-                    onChange={(date: any) => {
-                      setBirth(date ?? user.dateOfBirth);
+                    defaultValue={dayjs(user.dateOfBirth)}
+                    value={value}
+                    onChange={(date) => {
+                      setValue(date);
+                      setBirth(date?.format("YYYY-MM-DD") ?? user.dateOfBirth);
                     }}
                   />
                 </LocalizationProvider>
@@ -160,7 +165,7 @@ const Profile = () => {
                   error={mode === "update" && checkValidate(cccd)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={ mode==='update' && checkValidate(cccd) ? validationText : ""}
+                  helperText={mode === "update" && checkValidate(cccd) ? validationText : ""}
                   rows={1}
                   value={cccd}
                   onChange={(event: any) => {
@@ -264,7 +269,7 @@ const Profile = () => {
                   error={mode === "update" && checkValidate(province)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={ mode==='update' && checkValidate(province) ? validationText : ""}
+                  helperText={mode === "update" && checkValidate(province) ? validationText : ""}
                   rows={1}
                   value={province}
                   onChange={(event: any) => {
@@ -290,7 +295,7 @@ const Profile = () => {
                   error={mode === "update" && checkValidate(district)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={ mode==='update' && checkValidate(district) ? validationText : ""}
+                  helperText={mode === "update" && checkValidate(district) ? validationText : ""}
                   rows={1}
                   value={district}
                   onChange={(event: any) => {
@@ -318,7 +323,7 @@ const Profile = () => {
                   error={mode === "update" && checkValidate(address)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={ mode==='update' && checkValidate(address) ? validationText : ""}
+                  helperText={mode === "update" && checkValidate(address) ? validationText : ""}
                   rows={1}
                   value={address}
                   onChange={(event: any) => {
@@ -341,11 +346,13 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={mode === "update" && checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
+                  error={(mode === "update" && checkValidate(phoneNumber)) || phoneNumberValidate(phoneNumber)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={ mode==='update' && 
-                    checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber) ? validationTextPhoneNumber : ""
+                  helperText={
+                    (mode === "update" && checkValidate(phoneNumber)) || phoneNumberValidate(phoneNumber)
+                      ? validationTextPhoneNumber
+                      : ""
                   }
                   rows={1}
                   value={phoneNumber}
