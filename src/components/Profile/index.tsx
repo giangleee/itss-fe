@@ -25,7 +25,7 @@ const Profile = () => {
   const [district, setDistrict] = React.useState<string>("");
   const [phoneNumber, setPhoneNumber] = React.useState<string>("");
   const [avatar, setAvatar] = React.useState<string>("");
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2001-04-17"));
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   let payload: any;
@@ -34,12 +34,12 @@ const Profile = () => {
   useEffect(() => {
     setAvatar(user?.avatar ?? "312132");
     setFullName(user?.fullName ?? "");
-    setBirth(user?.dateOfBirth ?? "");
+    setBirth(user?.dateOfBirth ?? "2001/01/01");
     setCccd(user?.cccd ?? "");
     setEmail(user?.email ?? "");
     setGender(user?.gender ?? "");
     setAddress(user?.address ?? "");
-    setProvince(user?.city ?? "Ha Noi");
+    setProvince(user?.province ?? "Ha Noi");
     setDistrict(user?.district ?? "");
     setPhoneNumber(user?.phoneNumber ?? "1234567890");
     setValue(dayjs(user?.dateOfBirth ?? ""));
@@ -52,7 +52,7 @@ const Profile = () => {
       date_of_birth: date_of_birth, //YYYY-MM-DD
       address: address,
       phone_number: phoneNumber,
-      city: province,
+      province: province,
       district: district,
       avatar: avatar,
     };
@@ -131,7 +131,7 @@ const Profile = () => {
                     readOnly={mode === "view"}
                     slotProps={{
                       textField: {
-                        helperText: mode === "update" && checkValidate(date_of_birth) ? "DD/MM/YYYY" : "",
+                        helperText: mode === "update" && checkValidate(date_of_birth) ? "YYYY/MM/DD" : "",
                         size: "small",
                       },
                     }}
@@ -145,7 +145,7 @@ const Profile = () => {
                   />
                 </LocalizationProvider>
               </div>
-            </div>
+            </div>  
             <div className="row">
               <div className="col-6">
                 <Typography
@@ -273,7 +273,7 @@ const Profile = () => {
                   rows={1}
                   value={province}
                   onChange={(event: any) => {
-                    setProvince(event.target.value ?? user.city);
+                    setProvince(event.target.value ?? user.province);
                   }}
                 />
               </div>
@@ -379,7 +379,7 @@ const Profile = () => {
               <input
                 type="file"
                 accept="image/*"
-                className="opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer"
+                className="opaprovince-0 absolute top-0 left-0 w-full h-full cursor-pointer"
                 onChange={(e) => {
                   const file = e.target.files?.[0];
                   if (file) {
