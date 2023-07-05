@@ -1,12 +1,14 @@
 /* eslint-disable no-debugger */
 import "./style.scss";
-import { Button, Card, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Card, FormControlLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import { loginSuccess, useDispatch, useSelector } from "../../states";
 import React, { useEffect } from "react";
 import { updateUserInfo } from "../../api/request";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { toast } from "react-toastify";
+import { faCircleCheck, faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Profile = () => {
   // eslint-disable-next-line no-debugger
@@ -20,6 +22,7 @@ const Profile = () => {
   const [province, setProvince] = React.useState<string>("");
   const [district, setDistrict] = React.useState<string>("");
   const [phoneNumber, setPhoneNumber] = React.useState<string>("");
+  const [avatar, setAvatar] = React.useState<string>("");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   let payload: any;
@@ -46,12 +49,13 @@ const Profile = () => {
       phone_number: phoneNumber,
       city: province,
       district: district,
+      avatar: avatar,
     };
     try {
       const { data } = await updateUserInfo(user!._id, payload);
-      if(data.message == "Update user successfully"){
-      toast.success("成功した!");
-      dispatch(loginSuccess(data.data))
+      if (data.message == "Update user successfully") {
+        toast.success("成功した!");
+        dispatch(loginSuccess(data.data));
       }
     } catch (error) {
       toast.error("エラー!");
@@ -76,250 +80,315 @@ const Profile = () => {
   if (!user) return null;
   return (
     <div className="profile-container">
-      <div>
-        <h4>個人情報</h4>
-        <div className="row">
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>氏名</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              error={checkValidate(fullName)}
-              fullWidth
-              id="outlined-multiline-static"
-              multiline
-              rows={1}
-              size="small"
-              value={fullName}
-              helperText={checkValidate(fullName) ? validationText : ""}
-              onChange={(event: any) => {
-                setFullName(event.target.value ?? user.fullName);
-              }}
-            />
+      <div className="row">
+        <div className="col-11">
+          <div>
+            <h4>個人情報</h4>
+            <div className="row">
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>氏名</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  error={checkValidate(fullName)}
+                  fullWidth
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={1}
+                  size="small"
+                  value={fullName}
+                  helperText={checkValidate(fullName) ? validationText : ""}
+                  onChange={(event: any) => {
+                    setFullName(event.target.value ?? user.fullName);
+                  }}
+                />
+              </div>
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>誕生日</b>
+                </Typography>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    sx={{ width: "100%" }}
+                    readOnly={mode === "view"}
+                    slotProps={{
+                      textField: {
+                        helperText: checkValidate(date_of_birth) ? "MM/DD/YYYY" : "",
+                        size: "small",
+                      },
+                    }}
+                    value={date_of_birth}
+                    onChange={(date: any) => {
+                      setBirth(date ?? user.date_of_birth);
+                    }}
+                  />
+                </LocalizationProvider>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>識別番号</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  size="small"
+                  fullWidth
+                  error={checkValidate(cccd)}
+                  id="outlined-multiline-static"
+                  multiline
+                  helperText={checkValidate(cccd) ? validationText : ""}
+                  rows={1}
+                  value={cccd}
+                  onChange={(event: any) => {
+                    setCccd(event.target.value ?? user.cccd);
+                  }}
+                />
+              </div>
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>性別</b>
+                </Typography>
+                {/* <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  size="small"
+                  fullWidth
+                  error={checkValidate(gender)}
+                  id="outlined-multiline-static"
+                  multiline
+                  helperText={checkValidate(gender) ? validationText : ""}
+                  rows={1}
+                  value={gender}
+                  onChange={(event: any) => {
+                    setGender(event.target.value ?? user.gender);
+                  }}
+                /> */}
+                <RadioGroup
+                  name="gender"
+                  className="flex flex-row"
+                  onChange={(event: any) => {
+                    setGender(event.target.value ?? user.gender);
+                  }}
+                  defaultValue="Other"
+                >
+                  <FormControlLabel
+                    checked={gender === "Female"}
+                    value="Female"
+                    control={<Radio />}
+                    label="女性"
+                  />
+                  <FormControlLabel
+                    checked={gender === "Male"}
+                    value="Male"
+                    control={<Radio />}
+                    label="男性"
+                  />
+                  <FormControlLabel
+                    checked={gender === "Other"}
+                    value="Other"
+                    control={<Radio />}
+                    label="その他"
+                  />
+                </RadioGroup>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>メール</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  size="small"
+                  fullWidth
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={1}
+                  value={email}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>市</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  size="small"
+                  fullWidth
+                  error={checkValidate(province)}
+                  id="outlined-multiline-static"
+                  multiline
+                  helperText={checkValidate(province) ? validationText : ""}
+                  rows={1}
+                  value={province}
+                  onChange={(event: any) => {
+                    setProvince(event.target.value ?? user.province);
+                  }}
+                />
+              </div>
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>区</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  size="small"
+                  fullWidth
+                  error={checkValidate(district)}
+                  id="outlined-multiline-static"
+                  multiline
+                  helperText={checkValidate(district) ? validationText : ""}
+                  rows={1}
+                  value={district}
+                  onChange={(event: any) => {
+                    setDistrict(event.target.value ?? user.district);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>アドレス</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  size="small"
+                  fullWidth
+                  error={checkValidate(address)}
+                  id="outlined-multiline-static"
+                  multiline
+                  helperText={checkValidate(address) ? validationText : ""}
+                  rows={1}
+                  value={address}
+                  onChange={(event: any) => {
+                    setAddress(event.target.value ?? user.address);
+                  }}
+                />
+              </div>
+              <div className="col-6">
+                <Typography
+                  variant="subtitle1"
+                  component="h5"
+                  sx={{ padding: "5px" }}
+                  className="typo-custom"
+                >
+                  <b>電話番号</b>
+                </Typography>
+                <TextField
+                  InputProps={{
+                    readOnly: mode === "view",
+                  }}
+                  size="small"
+                  fullWidth
+                  error={checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
+                  id="outlined-multiline-static"
+                  multiline
+                  helperText={
+                    checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber) ? validationTextPhoneNumber : ""
+                  }
+                  rows={1}
+                  value={phoneNumber}
+                  onChange={(event: any) => {
+                    setPhoneNumber(event.target.value ?? user.phoneNumber);
+                  }}
+                />
+              </div>
+            </div>
           </div>
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
+        </div>
+        <div className="col-1 mt-2">
+          <Avatar
+            sx={{ width: 65, height: 65 }}
+            src={user.avatar}
+          />
+          {mode === "update" ? (
+            <Button
+              variant="outlined"
+              size="medium"
+              className="w-full border-2 mt-2"
+              startIcon={<FontAwesomeIcon icon={avatar ? faCircleCheck : faArrowUpFromBracket} />}
             >
-              <b>誕生日</b>
-            </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{ width: "100%" }}
-                readOnly={mode === "view"}
-                slotProps={{
-                  textField: {
-                    helperText: checkValidate(date_of_birth) ? "MM/DD/YYYY" : "",
-                    size: "small",
-                  },
-                }}
-                value={date_of_birth}
-                onChange={(date: any) => {
-                  setBirth(date ?? user.date_of_birth);
+              <input
+                type="file"
+                accept="image/*"
+                className="opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = (e) => {
+                      const dataUrl = e.target?.result as string;
+                      setAvatar(dataUrl);
+                    };
+                  }
                 }}
               />
-            </LocalizationProvider>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>識別番号</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              size="small"
-              fullWidth
-              error={checkValidate(cccd)}
-              id="outlined-multiline-static"
-              multiline
-              helperText={checkValidate(cccd) ? validationText : ""}
-              rows={1}
-              value={cccd}
-              onChange={(event: any) => {
-                setCccd(event.target.value ?? user.cccd);
-              }}
-            />
-          </div>
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>性別</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              size="small"
-              fullWidth
-              error={checkValidate(gender)}
-              id="outlined-multiline-static"
-              multiline
-              helperText={checkValidate(gender) ? validationText : ""}
-              rows={1}
-              value={gender}
-              onChange={(event: any) => {
-                setGender(event.target.value ?? user.gender);
-              }}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>メール</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: true,
-              }}
-              size="small"
-              fullWidth
-              id="outlined-multiline-static"
-              multiline
-              rows={1}
-              value={email}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>市</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              size="small"
-              fullWidth
-              error={checkValidate(province)}
-              id="outlined-multiline-static"
-              multiline
-              helperText={checkValidate(province) ? validationText : ""}
-              rows={1}
-              value={province}
-              onChange={(event: any) => {
-                setProvince(event.target.value ?? user.province);
-              }}
-            />
-          </div>
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>区</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              size="small"
-              fullWidth
-              error={checkValidate(district)}
-              id="outlined-multiline-static"
-              multiline
-              helperText={checkValidate(district) ? validationText : ""}
-              rows={1}
-              value={district}
-              onChange={(event: any) => {
-                setDistrict(event.target.value ?? user.district);
-              }}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>アドレス</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              size="small"
-              fullWidth
-              error={checkValidate(address)}
-              id="outlined-multiline-static"
-              multiline
-              helperText={checkValidate(address) ? validationText : ""}
-              rows={1}
-              value={address}
-              onChange={(event: any) => {
-                setAddress(event.target.value ?? user.address);
-              }}
-            />
-          </div>
-          <div className="col-6">
-            <Typography
-              variant="subtitle1"
-              component="h5"
-              sx={{ padding: "5px" }}
-              className="typo-custom"
-            >
-              <b>電話番号</b>
-            </Typography>
-            <TextField
-              InputProps={{
-                readOnly: mode === "view",
-              }}
-              size="small"
-              fullWidth
-              error={checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
-              id="outlined-multiline-static"
-              multiline
-              helperText={
-                checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber) ? validationTextPhoneNumber : ""
-              }
-              rows={1}
-              value={phoneNumber}
-              onChange={(event: any) => {
-                setPhoneNumber(event.target.value ?? user.phoneNumber);
-              }}
-            />
-          </div>
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
+
       <div className="row mt-3 mb-3">
         {mode === "view" ? (
           <div className="flex justify-evenly button__container">
