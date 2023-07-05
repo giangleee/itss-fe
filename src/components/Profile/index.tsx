@@ -42,7 +42,6 @@ const Profile = () => {
     setPhoneNumber(user?.phoneNumber ?? "1234567890");
   }, []);
   const handleSubmit = async (event: any) => {
-    debugger
     payload = {
       fullName: fullName,
       cccd: cccd,
@@ -136,7 +135,6 @@ const Profile = () => {
                     format="YYYY/MM/DD"
                     value={new Date(date_of_birth)}
                     onChange={(date: any) => {
-                      debugger
                       setBirth(date ?? user.dateOfBirth);
                     }}
                   />
@@ -410,7 +408,7 @@ const Profile = () => {
               className="button"
               onClick={() => setMode("update")}
             >
-              レビュー
+              編集
             </Button>
           </div>
         ) : (
