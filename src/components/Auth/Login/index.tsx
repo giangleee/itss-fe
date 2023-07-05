@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Input from "../Input";
 import { validateEmail, validatePassword } from "../validate";
 import { getMe, login } from "../../../api/request";
-import { loginFailed, loginSuccess, useDispatch } from "../../../states";
+import { loginFailed, loginSuccess, startLogin, useDispatch } from "../../../states";
 import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,11 +28,7 @@ const Login = () => {
         try {
           await login(values.email, values.password);
           toast.success("ログイン成功しました。", { autoClose: 1500 });
-          await new Promise((resolve) =>
-            setTimeout(() => {
-              resolve(null);
-            }, 1000),
-          );
+          dispatch(startLogin());
           const user = await getMe();
           dispatch(loginSuccess(user));
         } catch (error) {
