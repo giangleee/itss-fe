@@ -101,7 +101,7 @@ const Profile = () => {
                   InputProps={{
                     readOnly: mode === "view",
                   }}
-                  error={mode === "view" && checkValidate(fullName)}
+                  error={mode === "update" && checkValidate(fullName)}
                   fullWidth
                   id="outlined-multiline-static"
                   multiline
@@ -159,7 +159,7 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={mode === "view" && checkValidate(cccd)}
+                  error={mode === "update" && checkValidate(cccd)}
                   id="outlined-multiline-static"
                   multiline
                   helperText={ mode==='update' && checkValidate(cccd) ? validationText : ""}
@@ -263,7 +263,7 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={mode === "view" && checkValidate(province)}
+                  error={mode === "update" && checkValidate(province)}
                   id="outlined-multiline-static"
                   multiline
                   helperText={ mode==='update' && checkValidate(province) ? validationText : ""}
@@ -289,7 +289,7 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={mode === "view" && checkValidate(district)}
+                  error={mode === "update" && checkValidate(district)}
                   id="outlined-multiline-static"
                   multiline
                   helperText={ mode==='update' && checkValidate(district) ? validationText : ""}
@@ -317,7 +317,7 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={mode === "view" && checkValidate(address)}
+                  error={mode === "update" && checkValidate(address)}
                   id="outlined-multiline-static"
                   multiline
                   helperText={ mode==='update' && checkValidate(address) ? validationText : ""}
@@ -343,7 +343,7 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={mode === "view" && checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
+                  error={mode === "update" && checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
                   id="outlined-multiline-static"
                   multiline
                   helperText={ mode==='update' && 
