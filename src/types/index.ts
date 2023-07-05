@@ -57,10 +57,10 @@ export type User = {
   avatar?: string;
   gender: "Male" | "Female" | "Other";
   lang_id: string;
-  date_of_birth: string;
+  dateOfBirth: string;
   cccd: string;
   address: string;
-  province: string;
+  city: string;
   district: string;
 };
 export type UserForm = {
@@ -74,6 +74,6 @@ export type UserForm = {
   cccd?: string;
   address?: string;
   province?: string;
-  district?: string;
+  city?: string;
   password?: string;
 };

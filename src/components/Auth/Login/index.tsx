@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { Button, Card, Typography } from "@mui/material";
 import { Form, Formik, FormikErrors } from "formik";
 import { Link } from "react-router-dom";

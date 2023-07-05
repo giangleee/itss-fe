@@ -37,9 +37,8 @@ export const acceptStaff = (_staffId: string, _requestId: string) => {
 
 export const deleteStaffFormRequestList = (payload: any, _requestId: string) => {
   // eslint-disable-next-line no-debugger
-  debugger
   const url = `/request/list-apply-staff/${_requestId}`;
-  return instance({
+  return instance({ 
     method: 'patch',
     maxBodyLength: Infinity,
     url:url,

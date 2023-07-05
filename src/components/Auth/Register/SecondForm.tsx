@@ -226,7 +226,7 @@ const SecondForm: FC<SecondFormProps> = ({ onRequestBack, onSubmit }) => {
             </Button>
           </Form>
         </Card>
-      )}
+      )}  
     </Formik>
   );
 };
