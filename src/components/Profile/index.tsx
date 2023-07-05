@@ -9,6 +9,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { toast } from "react-toastify";
 import { faCircleCheck, faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import defaultavatar from "../../assets/img/avatar.png";
 
 const Profile = () => {
   // eslint-disable-next-line no-debugger
@@ -29,17 +30,19 @@ const Profile = () => {
   const validationText = "Không được bỏ trống";
   const validationTextPhoneNumber = "Nhập đúng định dạng";
   useEffect(() => {
+    setAvatar(user?.avatar ?? "312132");
     setFullName(user?.fullName ?? "");
-    setBirth(user?.date_of_birth ?? "");
+    setBirth(user?.dateOfBirth ?? "");
     setCccd(user?.cccd ?? "");
     setEmail(user?.email ?? "");
     setGender(user?.gender ?? "");
     setAddress(user?.address ?? "");
-    setProvince(user?.province ?? "");
+    setProvince(user?.city ?? "Ha Noi");
     setDistrict(user?.district ?? "");
-    setPhoneNumber(user?.phoneNumber ?? "");
+    setPhoneNumber(user?.phoneNumber ?? "1234567890");
   }, []);
   const handleSubmit = async (event: any) => {
+    debugger
     payload = {
       fullName: fullName,
       cccd: cccd,
@@ -57,7 +60,7 @@ const Profile = () => {
         toast.success("成功した!");
         dispatch(loginSuccess(data.data));
       }
-    } catch (error) {
+    } catch (error){
       toast.error("エラー!");
     }
   };
@@ -98,14 +101,14 @@ const Profile = () => {
                   InputProps={{
                     readOnly: mode === "view",
                   }}
-                  error={checkValidate(fullName)}
+                  error={mode === "view" && checkValidate(fullName)}
                   fullWidth
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
                   size="small"
                   value={fullName}
-                  helperText={checkValidate(fullName) ? validationText : ""}
+                  helperText={ mode==='update' && checkValidate(fullName) ? validationText : ""}
                   onChange={(event: any) => {
                     setFullName(event.target.value ?? user.fullName);
                   }}
@@ -126,13 +129,15 @@ const Profile = () => {
                     readOnly={mode === "view"}
                     slotProps={{
                       textField: {
-                        helperText: checkValidate(date_of_birth) ? "MM/DD/YYYY" : "",
+                        helperText:  mode==='update' && checkValidate(date_of_birth) ? "DD/MM/YYYY" : "",
                         size: "small",
                       },
                     }}
-                    value={date_of_birth}
+                    format="YYYY/MM/DD"
+                    value={new Date(date_of_birth)}
                     onChange={(date: any) => {
-                      setBirth(date ?? user.date_of_birth);
+                      debugger
+                      setBirth(date ?? user.dateOfBirth);
                     }}
                   />
                 </LocalizationProvider>
@@ -154,10 +159,10 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={checkValidate(cccd)}
+                  error={mode === "view" && checkValidate(cccd)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={checkValidate(cccd) ? validationText : ""}
+                  helperText={ mode==='update' && checkValidate(cccd) ? validationText : ""}
                   rows={1}
                   value={cccd}
                   onChange={(event: any) => {
@@ -180,10 +185,10 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={checkValidate(gender)}
+                  error={mode === "view" && checkValidate(gender)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={checkValidate(gender) ? validationText : ""}
+                  helperText={ mode==='update' && checkValidate(gender) ? validationText : ""}
                   rows={1}
                   value={gender}
                   onChange={(event: any) => {
@@ -258,14 +263,14 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={checkValidate(province)}
+                  error={mode === "view" && checkValidate(province)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={checkValidate(province) ? validationText : ""}
+                  helperText={ mode==='update' && checkValidate(province) ? validationText : ""}
                   rows={1}
                   value={province}
                   onChange={(event: any) => {
-                    setProvince(event.target.value ?? user.province);
+                    setProvince(event.target.value ?? user.city);
                   }}
                 />
               </div>
@@ -284,10 +289,10 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={checkValidate(district)}
+                  error={mode === "view" && checkValidate(district)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={checkValidate(district) ? validationText : ""}
+                  helperText={ mode==='update' && checkValidate(district) ? validationText : ""}
                   rows={1}
                   value={district}
                   onChange={(event: any) => {
@@ -312,10 +317,10 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={checkValidate(address)}
+                  error={mode === "view" && checkValidate(address)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={checkValidate(address) ? validationText : ""}
+                  helperText={ mode==='update' && checkValidate(address) ? validationText : ""}
                   rows={1}
                   value={address}
                   onChange={(event: any) => {
@@ -338,10 +343,10 @@ const Profile = () => {
                   }}
                   size="small"
                   fullWidth
-                  error={checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
+                  error={mode === "view" && checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber)}
                   id="outlined-multiline-static"
                   multiline
-                  helperText={
+                  helperText={ mode==='update' && 
                     checkValidate(phoneNumber) || phoneNumberValidate(phoneNumber) ? validationTextPhoneNumber : ""
                   }
                   rows={1}
