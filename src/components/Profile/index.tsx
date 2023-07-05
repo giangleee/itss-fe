@@ -45,7 +45,6 @@ const Profile = () => {
     setValue(dayjs(user?.dateOfBirth ?? ""));
   }, []);
   const handleSubmit = async (event: any) => {
-    debugger;
     payload = {
       fullName: fullName,
       cccd: cccd,
@@ -416,7 +415,7 @@ const Profile = () => {
               className="button"
               onClick={() => setMode("update")}
             >
-              レビュー
+              編集
             </Button>
           </div>
         ) : (
