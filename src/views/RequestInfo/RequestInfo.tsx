@@ -15,7 +15,7 @@ const RequestInfo: FC = () => {
       const { data: res } = response;
       console.log(res?.data);
       setRequest(res?.data[0]);
-      console.log(request?.request_detail?.salary)
+      console.log(request?.request_detail?.salary);
     };
     getRequest();
   }, []);
@@ -138,7 +138,7 @@ const RequestInfo: FC = () => {
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue={request?.request_detail?.work_time.split("-")[0]}
+                  defaultValue={request?.request_detail?.work_time.split("~")[0]}
                   className="w-8/12"
                 />
               </Grid>
@@ -162,7 +162,7 @@ const RequestInfo: FC = () => {
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue={request?.request_detail?.work_time.split("-")[1]}
+                  defaultValue={request?.request_detail?.work_time.split("~")[1]}
                   className="w-8/12"
                 />
               </Grid>
@@ -216,14 +216,19 @@ const RequestInfo: FC = () => {
           </Grid>
         </FormControl>
       </div>
-      <div className="flex justify-evenly button__container">
-        <Button
-          variant="contained"
-          className="button"
-          onClick={() => navigate(`review/${request?.request_detail?.staff_detail?._id}`)}
-        >
-          レビュー
-        </Button>
+      <div className="d-flex justify-content-evenly button__container">
+        {request?.request_detail?.staff_detail?._id ? (
+          <Button
+            variant="contained"
+            className="button"
+            onClick={() => navigate(`review/${request?.request_detail?.staff_detail?._id}`)}
+          >
+            レビュー
+          </Button>
+        ) : (
+          ""
+        )}
+
         <Button
           variant="contained"
           className="button"

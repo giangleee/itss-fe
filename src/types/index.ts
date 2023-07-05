@@ -60,7 +60,7 @@ export type User = {
   dateOfBirth: string;
   cccd: string;
   address: string;
-  city: string;
+  province: string;
   district: string;
 };
 export type UserForm = {

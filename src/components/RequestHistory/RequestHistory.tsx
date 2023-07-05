@@ -38,6 +38,7 @@ const RequestHistory = () => {
             name: item?.staff_detail[0]?.fullname,
             time: item?.request_detail?.request_detail_data.work_time,
             status: item?.request_detail?.request_detail_data.status,
+            requestId: item?.request_detail?._id,
           };
         }),
       );
@@ -51,9 +52,9 @@ const RequestHistory = () => {
         return "inActive";
       case 2:
         return "active";
-      case 3:
-        return "pending";
       case 0:
+        return "pending";
+      case 3:
         return "ended";
       default:
         return "";
@@ -67,9 +68,9 @@ const RequestHistory = () => {
         return "実行中";
       case 2:
         return "完了";
-      case 3:
-        return "探し中";
       case 0:
+        return "探し中";
+      case 3:
         return "期間切れ";
       default:
         return "";
@@ -114,7 +115,7 @@ const RequestHistory = () => {
             </TableHead>
             <TableBody>
               {displayData.map((row, i) => {
-                const id = row.id;
+                const id = row?.requestId;
                 return (
                   <TableRow
                     className="mt-2"
