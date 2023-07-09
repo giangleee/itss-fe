@@ -1,6 +1,6 @@
 /* eslint-disable no-debugger */
 import "./style.scss";
-import { Avatar, Button, Card, FormControlLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Card, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import { loginSuccess, useDispatch, useSelector } from "../../states";
 import React, { useEffect } from "react";
 import { updateUserInfo } from "../../api/request";
@@ -145,7 +145,7 @@ const Profile = () => {
                   />
                 </LocalizationProvider>
               </div>
-            </div>  
+            </div>
             <div className="row">
               <div className="col-6">
                 <Typography
@@ -198,33 +198,38 @@ const Profile = () => {
                     setGender(event.target.value ?? user.gender);
                   }}
                 /> */}
-                <RadioGroup
-                  name="gender"
-                  className="flex flex-row"
-                  onChange={(event: any) => {
-                    setGender(event.target.value ?? user.gender);
-                  }}
-                  defaultValue="Other"
+                <FormControl
+                  component="fieldset"
+                  readOnly
                 >
-                  <FormControlLabel
-                    checked={gender === "Female"}
-                    value="Female"
-                    control={<Radio />}
-                    label="女性"
-                  />
-                  <FormControlLabel
-                    checked={gender === "Male"}
-                    value="Male"
-                    control={<Radio />}
-                    label="男性"
-                  />
-                  <FormControlLabel
-                    checked={gender === "Other"}
-                    value="Other"
-                    control={<Radio />}
-                    label="その他"
-                  />
-                </RadioGroup>
+                  <RadioGroup
+                    name="gender"
+                    className="flex flex-row"
+                    onChange={(event: any) => {
+                      setGender(event.target.value ?? user.gender);
+                    }}
+                    defaultValue="Other"
+                  >
+                    <FormControlLabel
+                      checked={gender === "Female"}
+                      value="Female"
+                      control={<Radio />}
+                      label="女性"
+                    />
+                    <FormControlLabel
+                      checked={gender === "Male"}
+                      value="Male"
+                      control={<Radio />}
+                      label="男性"
+                    />
+                    <FormControlLabel
+                      checked={gender === "Other"}
+                      value="Other"
+                      control={<Radio />}
+                      label="その他"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </div>
             </div>
             <div className="row">
