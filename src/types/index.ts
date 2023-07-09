@@ -77,3 +77,28 @@ export type UserForm = {
   city?: string;
   password?: string;
 };
+export type RequestDetail = {
+  _id: string;
+  request_detail_id: string;
+  job: number;
+  createdAt: string;
+  updatedAt: string;
+  request_detail_data: {
+    _id: string;
+    user_id: string;
+    work_time: string;
+    salary: number;
+    policy: string;
+    other_note: string;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+    staff_id: string;
+  };
+};
+
+export type Request = {
+  _id: string;
+  staff_detail: Staff[];
+  request_detail: RequestDetail;
+};

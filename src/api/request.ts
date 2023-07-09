@@ -96,7 +96,6 @@ export const getListStaff = async ({ gender, age, star }: { gender?: string; age
 export const getStaffReviews = async (staff_id: string) => {
   const url = `/ratting?staff_id=${staff_id}`;
   const res = await instance.get(url);
-  // if (!res.data.data || !res.data.data?.length) return reviewsSample;
   return res.data.data as ReviewType[];
 };
 

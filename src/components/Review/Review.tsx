@@ -4,37 +4,34 @@ import { Avatar, Button, Rating, TextField } from "@mui/material";
 import "./style.scss";
 import React, { useEffect } from "react";
 import { createReview, getStaffById } from "../../api/request";
-import { RatingType } from "../../types";
+import { RatingType, Staff } from "../../types";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "../../states";
 
 const RequestList = () => {
+  const { selectedRequest } = useSelector((state) => state.request);
+  const { user } = useSelector((state) => state.auth);
   const { request_id, staff_id } = useParams();
-  const [staff, setStaff] = React.useState<any>();
+  const [staff, setStaff] = React.useState<Staff>();
   const [rating, setRating] = React.useState<number>(0);
   const [comment, setComment] = React.useState<string>("");
   const [validateComment, setValidateComment] = React.useState<boolean>(false);
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-
   useEffect(() => {
-    const getorder = async () => {
-      const response = await getStaffById(staff_id!);
-      console.log(response);
-      const { data: res } = response;
-
-      setStaff(res?.data);
-    };
-    getorder();
+    if (!selectedRequest) {
+      navigate("/history");
+      return;
+    }
+    const staff = selectedRequest.staff_detail[0];
+    setStaff(staff);
   }, []);
-  if (!user) return null;
+  if (!user || !selectedRequest || !staff) return null;
 
   const calculate_age = (dob: any): number => {
     const birthDate = new Date(dob);
     const difference = Date.now() - birthDate.getTime();
     const age = new Date(difference);
-
     return Math.abs(age.getUTCFullYear() - 1970);
   };
 
@@ -52,13 +49,13 @@ const RequestList = () => {
   };
 
   const onSubmitRatting = async () => {
-    if(rating === 0){
+    if (rating === 0) {
       toast.error("評価を選んでください");
       return;
     }
     try {
       const payload = {
-        user_id: user?._id,
+        user_id: user._id,
         staff_id: staff._id,
         request_id: request_id,
         data: {
@@ -93,8 +90,7 @@ const RequestList = () => {
           <div className="col">
             <div className="row">
               <div className="d-flex w-100 justify-content-between">
-                <b>{staff?.fullName}</b>
-                {/* <small>ID: {staff._id}</small> */}
+                <b>{staff.fullname}</b>
               </div>
             </div>
             <div className="row">
