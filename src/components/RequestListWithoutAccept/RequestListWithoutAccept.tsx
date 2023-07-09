@@ -1,13 +1,5 @@
 /* eslint-disable no-debugger */
-import {
-  Avatar,
-  Button,
-  List,
-  ListItem,
-  Pagination,
-  Rating,
-  TextField,
-} from "@mui/material";
+import { Avatar, Button, List, ListItem, Pagination, Rating, TextField } from "@mui/material";
 import "./style.scss";
 import React, { useEffect } from "react";
 import { getListApplyStaff, getListProgress } from "../../api/request";
@@ -23,7 +15,7 @@ const RequestListWithoutAccept = () => {
     const getorder = async () => {
       const response = await getListProgress();
       const { data: res } = response;
-
+      console.log(res);
       setData(res?.data);
       setDisplayData(res?.data);
     };
@@ -39,10 +31,7 @@ const RequestListWithoutAccept = () => {
           >
             {displayData.map((item, index: number) => {
               const _id = item._id;
-              if (
-                index === currentPage * 3 + 1 ||
-                index === currentPage * 3 + 0
-              )
+              if (index === currentPage * 2 + 1 || index === currentPage * 2 + 0)
                 return (
                   <ListItem
                     key={index}
@@ -56,8 +45,8 @@ const RequestListWithoutAccept = () => {
                   >
                     <div className="w-100">
                       <div className="row h-100 w-100 mb-3">
-                        <span >
-                          <b>リクエストID: {item._id}</b>
+                        <span>
+                          <b>リクエストID: {item.request_detail._id}</b>
                         </span>
                       </div>
 
@@ -69,7 +58,6 @@ const RequestListWithoutAccept = () => {
                         </div>
                         <div className="col-10 me-0 pe-0">
                           <div className="row w-100 pe-0">
-
                             <div className="col-7">
                               <div className="row w-100 pe-0">
                                 <div className="col-6 p-0 m-0">
@@ -86,9 +74,7 @@ const RequestListWithoutAccept = () => {
                                           readOnly: true,
                                         }}
                                         size="small"
-                                        value={
-                                          item.request_detail?.work_time?.split("-")[0]
-                                        }
+                                        value={item.request_detail?.work_time?.split("~")[0]}
                                       />
                                     </div>
                                   </div>
@@ -107,9 +93,7 @@ const RequestListWithoutAccept = () => {
                                         }}
                                         fullWidth
                                         size="small"
-                                        value={
-                                          item.request_detail?.work_time?.split("-")[1]
-                                        }
+                                        value={item.request_detail?.work_time?.split("~")[1]}
                                       />
                                     </div>
                                   </div>
@@ -131,9 +115,7 @@ const RequestListWithoutAccept = () => {
                                     }}
                                     fullWidth
                                     size="small"
-                                    value={
-                                        item.request_detail?.salary
-                                      }
+                                    value={item.request_detail?.salary}
                                   />
                                 </div>
                               </div>
@@ -154,11 +136,9 @@ const RequestListWithoutAccept = () => {
                             multiline
                             rows={3}
                             InputProps={{
-                                readOnly: true,
-                              }}
-                            value={
-                                item.request_detail?.other_note
-                              }
+                              readOnly: true,
+                            }}
+                            value={item.request_detail?.other_note}
                           />
                         </div>
                       </div>
@@ -175,7 +155,9 @@ const RequestListWithoutAccept = () => {
                               style={{
                                 backgroundColor: "#FF7008",
                               }}
-                              onClick={() => {navigate(`${_id}/apply-staff`)}}
+                              onClick={() => {
+                                navigate(`${_id}/apply-staff`);
+                              }}
                             >
                               見る
                             </Button>

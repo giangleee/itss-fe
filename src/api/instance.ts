@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
 const instance = axios.create({
-  baseURL: "https://itss-be-production.up.railway.app/api/v1",
+  // baseURL: "https://itss-be-production.up.railway.app/api/v1",
+  baseURL: " http://localhost:3000/api/v1",
+ 
 });
 
 const onRequest = (config: InternalAxiosRequestConfig) => {
