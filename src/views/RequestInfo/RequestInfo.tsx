@@ -1,24 +1,25 @@
 import "./style.scss";
-import { FC, useEffect } from "react";
 import { Button, FormControl, Grid, TextField, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import React from "react";
-import { getRequestById } from "../../api/request";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "../../states";
+import { useEffect } from "react";
+const STATUS = ["探し中", "実行中", "完了", "期間切れ"];
+function getText(status: number): string {
+  const rslt = STATUS[status];
+  return rslt || "";
+}
 
-const RequestInfo: FC = () => {
-  const [request, setRequest] = React.useState<any>();
-  const { request_id } = useParams();
+const RequestInfo = () => {
+  const { selectedRequest: request } = useSelector((state) => state.request);
   const navigate = useNavigate();
   useEffect(() => {
-    const getRequest = async () => {
-      const response = await getRequestById(request_id!);
-      const { data: res } = response;
-      console.log(res?.data);
-      setRequest(res?.data[0]);
-      console.log(request?.request_detail?.salary);
-    };
-    getRequest();
-  }, []);
+    if (!request) {
+      navigate("/history");
+    }
+  }, [navigate, request]);
+  if (!request) {
+    return null;
+  }
   return (
     <div className="new-request__container">
       <h4>リクエスト詳細</h4>
@@ -43,11 +44,14 @@ const RequestInfo: FC = () => {
               InputProps={{
                 readOnly: true,
               }}
+              disabled={!request.staff_detail[0]}
               fullWidth
               id="outlined-multiline-static"
-              multiline
               rows={1}
-              defaultValue={request?.request_detail?.staff_detail?.fullname}
+              value={request.staff_detail[0]?.fullname}
+              onClick={() => {
+                navigate(`/staff/${request.staff_detail[0]?._id}`);
+              }}
             />
           </Grid>
           <Grid
@@ -70,7 +74,7 @@ const RequestInfo: FC = () => {
               id="outlined-multiline-static"
               multiline
               rows={1}
-              defaultValue={request?.request_detail?.status == 1 ? "実行中" : "完了"}
+              defaultValue={getText(request.request_detail?.request_detail_data.status)}
             />
           </Grid>
         </FormControl>
@@ -94,7 +98,7 @@ const RequestInfo: FC = () => {
               id="outlined-multiline-static"
               multiline
               rows={3}
-              defaultValue={request?.request_detail?.policy}
+              value={request.request_detail?.request_detail_data.policy}
             />
           </Grid>
         </FormControl>
@@ -138,7 +142,7 @@ const RequestInfo: FC = () => {
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue={request?.request_detail?.work_time.split("~")[0]}
+                  defaultValue={request.request_detail.request_detail_data.work_time.split("~")[0]}
                   className="w-8/12"
                 />
               </Grid>
@@ -162,7 +166,7 @@ const RequestInfo: FC = () => {
                   id="outlined-multiline-static"
                   multiline
                   rows={1}
-                  defaultValue={request?.request_detail?.work_time.split("~")[1]}
+                  defaultValue={request.request_detail?.request_detail_data.work_time.split("~")[1]}
                   className="w-8/12"
                 />
               </Grid>
@@ -188,7 +192,7 @@ const RequestInfo: FC = () => {
               id="outlined-multiline-static"
               multiline
               rows={1}
-              defaultValue={request?.request_detail?.salary}
+              defaultValue={request.request_detail?.request_detail_data.salary}
             />
           </Grid>
         </FormControl>
@@ -210,18 +214,18 @@ const RequestInfo: FC = () => {
               }}
               fullWidth
               id="outlined-multiline-static"
-              defaultValue={request?.request_detail?.other_note}
+              value={request.request_detail?.request_detail_data.other_note}
               rows={2}
             />
           </Grid>
         </FormControl>
       </div>
       <div className="d-flex justify-content-evenly button__container">
-        {request?.request_detail?.staff_detail?._id ? (
+        {request.staff_detail[0]?._id ? (
           <Button
             variant="contained"
             className="button"
-            onClick={() => navigate(`review/${request?.request_detail?.staff_detail?._id}`)}
+            onClick={() => navigate(`review/${request.staff_detail[0]?._id}`)}
           >
             レビュー
           </Button>

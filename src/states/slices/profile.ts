@@ -26,7 +26,7 @@ const profileSlice = createSlice({
       state.address = action.payload;
     },
     updateProvince: (state, action: PayloadAction<string>) => {
-      state.city = action.payload;
+      state.province = action.payload;
     },
     updateDistrict: (state, action: PayloadAction<string>) => {
       state.district = action.payload;

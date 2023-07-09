@@ -38,7 +38,7 @@ const ReviewGroup: FC = () => {
   );
 };
 type ReviewItemProps = {
-  user_detail: { avatar?: string; fullname?: string; address?: string }[];
+  user_detail: { avatar?: string; fullName?: string; address?: string }[];
   ratting?: number;
   comment?: string;
   createdAt?: string;
@@ -54,7 +54,7 @@ const ReviewItem: FC<ReviewItemProps> = ({ user_detail, ratting, comment, create
             className="h-24 w-24 shadow-md"
           />
           <div className="flex flex-col justify-evenly">
-            <Typography className="font-extrabold text-2xl">{user.fullname}</Typography>
+            <Typography className="font-extrabold text-2xl">{user.fullName}</Typography>
             <Typography>
               <b>住所</b>：{user.address}
             </Typography>
