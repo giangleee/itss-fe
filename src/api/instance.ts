@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
 const instance = axios.create({
-  baseURL: "https://itss-be-production.up.railway.app/api/v1",
+  baseURL: "http://localhost:3000/api/v1",
 });
 
 const onRequest = (config: InternalAxiosRequestConfig) => {
@@ -21,7 +21,7 @@ const onResponse = (response: AxiosResponse) => {
 };
 const onRejected = (error: AxiosError<{ message: string }>) => {
   const response = error.response;
-  if (response?.config.url === "/me") return;
+  if (response?.config.url === "/auth") return;
   toast.error(response?.data.message || "何か問題が発生しました");
 };
 instance.interceptors.request.use(onRequest);
