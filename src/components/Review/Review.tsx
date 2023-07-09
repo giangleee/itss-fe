@@ -67,6 +67,7 @@ const RequestList = () => {
       if (data?.message == "Create review successfully") {
         console.log("thành công");
         toast.success("成功した!");
+        navigate(-1)
       }
     } catch (error) {
       console.log("lỗi");

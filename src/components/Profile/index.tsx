@@ -1,6 +1,16 @@
 /* eslint-disable no-debugger */
 import "./style.scss";
-import { Avatar, Button, Card, FormControlLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Card,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { loginSuccess, useDispatch, useSelector } from "../../states";
 import React, { useEffect } from "react";
 import { updateUserInfo } from "../../api/request";
@@ -61,6 +71,7 @@ const Profile = () => {
       if (data.message == "Update user successfully") {
         toast.success("成功した!");
         dispatch(loginSuccess(data.data));
+        setMode("view");
       }
     } catch (error) {
       toast.error("エラー!");
@@ -80,6 +91,20 @@ const Profile = () => {
       return true;
     }
   }
+
+  const backToView = async () => {
+    setMode("view");
+    setAvatar(user?.avatar ?? "312132");
+    setFullName(user?.fullName ?? "");
+    setBirth(user?.dateOfBirth ?? "2001/01/01");
+    setCccd(user?.cccd ?? "");
+    setEmail(user?.email ?? "");
+    setGender(user?.gender ?? "");
+    setAddress(user?.address ?? "");
+    setProvince(user?.province ?? "Ha Noi");
+    setDistrict(user?.district ?? "");
+    setPhoneNumber(user?.phoneNumber ?? "1234567890");
+  };
 
   // TODO: Sau khi chỉnh sửa profile xong thì nhớ dispatch action update thông tin user nhé(để những trang khác có thể lấy thông tin user mới nhất)
   if (!user) return null;
@@ -145,7 +170,7 @@ const Profile = () => {
                   />
                 </LocalizationProvider>
               </div>
-            </div>  
+            </div>
             <div className="row">
               <div className="col-6">
                 <Typography
@@ -182,22 +207,6 @@ const Profile = () => {
                 >
                   <b>性別</b>
                 </Typography>
-                {/* <TextField
-                  InputProps={{
-                    readOnly: mode === "view",
-                  }}
-                  size="small"
-                  fullWidth
-                  error={mode === "view" && checkValidate(gender)}
-                  id="outlined-multiline-static"
-                  multiline
-                  helperText={ mode==='update' && checkValidate(gender) ? validationText : ""}
-                  rows={1}
-                  value={gender}
-                  onChange={(event: any) => {
-                    setGender(event.target.value ?? user.gender);
-                  }}
-                /> */}
                 <RadioGroup
                   name="gender"
                   className="flex flex-row"
@@ -444,7 +453,7 @@ const Profile = () => {
               className="px-3"
               size="large"
               // onClick={() => navigate(`history/${request_id}`, {replace: true})}
-              onClick={() => setMode("view")}
+              onClick={backToView}
               variant="outlined"
               style={{
                 borderColor: "#FF7008",

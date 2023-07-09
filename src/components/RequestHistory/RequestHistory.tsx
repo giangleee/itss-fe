@@ -21,7 +21,7 @@ const columns: { id: "id" | "name" | "time" | "status"; label: string; minWidth:
 const displayDataMap = (data: Request[]) => {
   return data.map((item) => {
     return {
-      id: item?._id,
+      id: item?.request_detail?.request_detail_id,
       name: item?.staff_detail[0]?.fullname,
       time: item?.request_detail?.request_detail_data.work_time,
       status: item?.request_detail?.request_detail_data.status,
@@ -61,6 +61,7 @@ const RequestHistory = () => {
       if (!user) return;
       const response = await getListOwnerHistoryRequest(user._id);
       const { data: res } = response;
+      console.log(res)
       dispatch(endLoadRequest(res?.data || []));
     };
     getRequestHistory();

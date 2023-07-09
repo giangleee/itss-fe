@@ -5,7 +5,7 @@ import "./style.scss";
 import { useEffect, useState } from "react";
 import { acceptStaff, deleteStaffFormRequestList, getListApplyStaff } from "../../api/request";
 import { ceil } from "lodash";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Filter from "../Filter";
 import { FilterType } from "../../types";
 
@@ -28,11 +28,12 @@ const RequestList = () => {
 
     return Math.abs(age.getUTCFullYear() - 1970);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!request_id) return;
     const getorder = async () => {
-      const response = await getListApplyStaff(request_id);
+  const response = await getListApplyStaff(request_id);
       const { data: res } = response;
 
       setData(
@@ -104,11 +105,13 @@ const RequestList = () => {
 
   async function accept(staffId: string) {
     if (request_id) {
-      try {
+        debugger
+        try {
         const { data } = await acceptStaff(staffId, request_id);
-        if (data?.message == "Remove staff from request list staff successfully") {
+        if (data?.message == "Accept staff successfully") {
           // console.log("thành công");
           toast.success("成功した!");
+          navigate(-1)
         }
       } catch (error) {
         toast.error("エラー!");
