@@ -68,8 +68,6 @@ const NewRequestView: FC = () => {
   };
 
   const handleSave = async (value: createRequestInterface) => {
-    console.log(user);
-
     const { from, to }: TimeInterface = value.time;
     const customWorkTime = `${from.hour}:${from.minute} ${from.meridiem} ~ ${to.hour}:${to.minute} ${to.meridiem}`;
 
