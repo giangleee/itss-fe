@@ -9,14 +9,13 @@ const ReviewGroup: FC = () => {
   const { staff_id } = useParams();
   const navigate = useNavigate();
   const { data } = useQuery(
-    ["getReview"],
+    ["getReview", staff_id],
     () => {
       if (!staff_id) return Promise.resolve([]);
       return getStaffReviews(staff_id);
     },
     { initialData: [] },
   );
-  console.log(data);
   return (
     <div className="flex-1 flex gap-3 flex-col">
       <Paper
