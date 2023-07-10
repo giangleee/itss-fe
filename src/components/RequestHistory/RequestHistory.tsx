@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { endLoadRequest, selectRequest, startLoadRequest, useDispatch, useSelector } from "../../states";
 import { Request } from "../../types";
-const columns: { id: "id" | "name" | "time" | "status"; label: string; minWidth: string; align: "center" }[] = [
-  { id: "id", label: "Id", minWidth: "20%", align: "center" },
+const columns: { id: "id" | "name" | "time" | "status" | "index"; label: string; minWidth: string; align: "center" }[] = [
+  { id: "index", label: "番号順", minWidth: "20%", align: "center" },
   { id: "name", label: "スタッフ", minWidth: "30%", align: "center" },
   { id: "time", label: "時間", minWidth: "30%", align: "center" },
   {
@@ -19,9 +19,10 @@ const columns: { id: "id" | "name" | "time" | "status"; label: string; minWidth:
   },
 ];
 const displayDataMap = (data: Request[]) => {
-  return data.map((item) => {
+  return data.map((item, index) => {
     return {
       id: item?.request_detail?.request_detail_id,
+      index: index + 1,
       name: item?.staff_detail[0]?.fullname,
       time: item?.request_detail?.request_detail_data.work_time,
       status: item?.request_detail?.request_detail_data.status,
@@ -29,6 +30,7 @@ const displayDataMap = (data: Request[]) => {
     };
   });
 };
+
 function getClass(status: number): string {
   switch (status) {
     case 1:
