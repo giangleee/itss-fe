@@ -22,9 +22,9 @@ const onResponse = (response: AxiosResponse) => {
   return response;
 };
 const onRejected = (error: AxiosError<{ message: string }>) => {
-  const response = error.response;
-  if (response?.config.url === "/auth") return;
-  toast.error(response?.data.message || "何か問題が発生しました");
+  // const response = error.response;
+  // if (response?.config.url === "/auth") return;
+  // toast.error(response?.data.message || "何か問題が発生しました");
 };
 instance.interceptors.request.use(onRequest);
 instance.interceptors.response.use(onResponse, onRejected);

@@ -6,6 +6,7 @@ import {
   Card,
   FormControl,
   FormControlLabel,
+  IconButton,
   Radio,
   RadioGroup,
   TextField,
@@ -61,7 +62,7 @@ const Profile = () => {
       gender: gender,
       date_of_birth: date_of_birth, //YYYY-MM-DD
       address: address,
-      phone_number: phoneNumber,
+      phoneNumber: phoneNumber,
       province: province,
       district: district,
       avatar: avatar,
@@ -110,8 +111,42 @@ const Profile = () => {
   if (!user) return null;
   return (
     <div className="profile-container">
-      <div className="row">
-        <div className="col-11">
+      <div className="row relative">
+        <div className="w-full">
+          <div className="flex absolute top-0 right-2 items-center gap-3">
+            {mode === "update" ? (
+              <Button
+                variant="outlined"
+                size="medium"
+                className="w-full border-2 mt-2 h-10"
+                startIcon={<FontAwesomeIcon icon={faArrowUpFromBracket} />}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.readAsDataURL(file);
+                      reader.onload = (e) => {
+                        const dataUrl = e.target?.result as string;
+                        setAvatar(dataUrl);
+                      };
+                    }
+                  }}
+                />
+              </Button>
+            ) : (
+              ""
+            )}
+            <Avatar
+              sx={{ width: 65, height: 65 }}
+              className="shadow-md"
+              src={avatar}
+            />
+          </div>
           <div>
             <h4>個人情報</h4>
             <div className="row">
@@ -198,42 +233,47 @@ const Profile = () => {
                   }}
                 />
               </div>
-              <div className="col-6">
-                <Typography
-                  variant="subtitle1"
-                  component="h5"
-                  sx={{ padding: "5px" }}
-                  className="typo-custom"
-                >
-                  <b>性別</b>
-                </Typography>
-                <RadioGroup
-                  name="gender"
-                  className="flex flex-row"
-                  onChange={(event: any) => {
-                    setGender(event.target.value ?? user.gender);
-                  }}
-                  defaultValue="Other"
-                >
-                  <FormControlLabel
-                    checked={gender === "Female"}
-                    value="Female"
-                    control={<Radio />}
-                    label="女性"
-                  />
-                  <FormControlLabel
-                    checked={gender === "Male"}
-                    value="Male"
-                    control={<Radio />}
-                    label="男性"
-                  />
-                  <FormControlLabel
-                    checked={gender === "Other"}
-                    value="Other"
-                    control={<Radio />}
-                    label="その他"
-                  />
-                </RadioGroup>
+              <div className="col-6 flex flex-row items-center justify-between">
+                <div>
+                  <Typography
+                    variant="subtitle1"
+                    component="h5"
+                    sx={{ padding: "5px" }}
+                    className="typo-custom"
+                  >
+                    <b>性別</b>
+                  </Typography>
+                  <RadioGroup
+                    name="gender"
+                    className="flex flex-row"
+                    onChange={(event: any) => {
+                      setGender(event.target.value ?? user.gender);
+                    }}
+                    defaultValue="Other"
+                  >
+                    <FormControlLabel
+                      disabled={mode === "view"}
+                      checked={gender === "Female"}
+                      value="Female"
+                      control={<Radio />}
+                      label="女性"
+                    />
+                    <FormControlLabel
+                      disabled={mode === "view"}
+                      checked={gender === "Male"}
+                      value="Male"
+                      control={<Radio />}
+                      label="男性"
+                    />
+                    <FormControlLabel
+                      disabled={mode === "view"}
+                      checked={gender === "Other"}
+                      value="Other"
+                      control={<Radio />}
+                      label="その他"
+                    />
+                  </RadioGroup>
+                </div>
               </div>
             </div>
             <div className="row">
@@ -372,39 +412,6 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="col-1 mt-2">
-          <Avatar
-            sx={{ width: 65, height: 65 }}
-            src={user.avatar}
-          />
-          {mode === "update" ? (
-            <Button
-              variant="outlined"
-              size="medium"
-              className="w-full border-2 mt-2"
-              startIcon={<FontAwesomeIcon icon={avatar ? faCircleCheck : faArrowUpFromBracket} />}
-            >
-              <input
-                type="file"
-                accept="image/*"
-                className="opaprovince-0 absolute top-0 left-0 w-full h-full cursor-pointer"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = (e) => {
-                      const dataUrl = e.target?.result as string;
-                      setAvatar(dataUrl);
-                    };
-                  }
-                }}
-              />
-            </Button>
-          ) : (
-            ""
-          )}
         </div>
       </div>
 
