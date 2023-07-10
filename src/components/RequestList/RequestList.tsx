@@ -33,9 +33,8 @@ const RequestList = () => {
   useEffect(() => {
     if (!request_id) return;
     const getorder = async () => {
-  const response = await getListApplyStaff(request_id);
+      const response = await getListApplyStaff(request_id);
       const { data: res } = response;
-
       setData(
         res?.data.sort((a: any, b: any) => {
           return a.rating_avg - b.rating_avg;
@@ -105,13 +104,12 @@ const RequestList = () => {
 
   async function accept(staffId: string) {
     if (request_id) {
-        debugger
-        try {
+      try {
         const { data } = await acceptStaff(staffId, request_id);
         if (data?.message == "Accept staff successfully") {
           // console.log("thành công");
           toast.success("成功した!");
-          navigate(-1)
+          navigate(-1);
         }
       } catch (error) {
         toast.error("エラー!");
@@ -122,7 +120,7 @@ const RequestList = () => {
   async function deleteStaff(staffId: string) {
     if (request_id) {
       try {
-        const { data } = await deleteStaffFormRequestList( JSON.stringify({staffs: [staffId]}),request_id);
+        const { data } = await deleteStaffFormRequestList(JSON.stringify({ staffs: [staffId] }), request_id);
         if (data?.message == "Remove staff from request list staff successfully") {
           // console.log("thành công");
           toast.success("成功した!");
@@ -165,8 +163,7 @@ const RequestList = () => {
                         <div className="col">
                           <div className="row">
                             <div className="d-flex w-100 justify-content-between">
-                              <b>{item.fullName}</b>
-                              {/* <small>ID: {item._id}</small> */}
+                              <b>{item.fullname}</b>
                             </div>
                           </div>
                           <div className="row">

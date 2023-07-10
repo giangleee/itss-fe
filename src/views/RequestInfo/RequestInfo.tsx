@@ -221,7 +221,7 @@ const RequestInfo = () => {
         </FormControl>
       </div>
       <div className="d-flex justify-content-evenly button__container">
-        {request.staff_detail[0]?._id ? (
+        {request.request_detail?.request_detail_data.status === 1 ? (
           <Button
             variant="contained"
             className="button"

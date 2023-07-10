@@ -46,7 +46,7 @@ const RequestListWithoutAccept = () => {
                     <div className="w-100">
                       <div className="row h-100 w-100 mb-3">
                         <span>
-                          <b>リクエストID: {item.request_detail._id}</b>
+                          <b>番号順: {index + 1}</b>
                         </span>
                       </div>
 

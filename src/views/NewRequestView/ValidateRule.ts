@@ -15,7 +15,7 @@ export const validateRule = () => {
                 meridiem: Yup.string().required("午前/午後を入力してください"),
             }),
         }),
-        salary: Yup.string().required("給与の詳細を入力してください"),
+        salary: Yup.string().required("給与の詳細を入力してください(100.000đ以上)"),
         otherNotes: Yup.string().required("備考の詳細を入力してください"),
     });
 };
