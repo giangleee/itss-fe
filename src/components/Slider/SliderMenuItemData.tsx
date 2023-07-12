@@ -50,7 +50,7 @@ const SliderMenuItemData: SliderMenuItemInterface[] = [
     router: "history",
   },
   {
-    text: "スタッフからのリクエスト",
+    text: "リクエストに一致するスタッフ",
     sliderIcon: (
       <IconDashboard
         width="40"
